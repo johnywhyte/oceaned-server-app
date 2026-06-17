@@ -1,0 +1,261 @@
+import {
+  Injectable,
+  UnauthorizedException,
+  BadRequestException,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, MoreThan } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import * as crypto from 'crypto';
+import { User } from 'src/user/entities/user.entity';
+import { Role } from 'src/user/entities/role.entity';
+import { EmailService } from '../email/email.service';
+import { RegisterUserDto } from './dto/register-user.dto';
+import { LoginDto } from './dto/login.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
+import { AuthResponse, TokenPayload } from 'src/common/interfaces/auth-response.interface';
+import { UsersService } from 'src/user/user.service';
+
+@Injectable()
+export class AuthService {
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+
+    @InjectRepository(Role)
+    private readonly roleRepository: Repository<Role>,
+
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+    private readonly emailService: EmailService,
+    private readonly userService: UsersService,
+  ) {}
+
+  async createUser(registerUserDto: RegisterUserDto, token?: string): Promise<User> {
+    const userCount = await this.userRepository.count();
+
+    if (userCount > 0) {
+      if (!token) {
+        throw new UnauthorizedException('System already initialized. A Superadmin token is required.');
+      }
+
+      try {
+        const payload = await this.jwtService.verifyAsync(token, {
+          secret: this.configService.get<string>('JWT_SECRET'),
+        });
+
+        if (payload.role !== 'SUPER_ADMIN') {
+          throw new UnauthorizedException('Only a SUPER_ADMIN can register new users.');
+        }
+      } catch (error) {
+        throw new UnauthorizedException('Invalid or expired Superadmin token.');
+      }
+    }
+
+    const existingUser = await this.userRepository.findOne({
+      where: { email: registerUserDto.email },
+    });
+
+    if (existingUser) {
+      throw new ConflictException('Email already exists');
+    }
+
+    const role = await this.roleRepository.findOne({
+      where: { id: registerUserDto.roleId },
+    });
+
+    if (!role) {
+      throw new NotFoundException(`Role with ID ${registerUserDto.roleId} not found`);
+    }
+
+    const user = this.userRepository.create({
+      ...registerUserDto,
+      role, 
+    });
+
+    const savedUser = await this.userRepository.save(user);
+
+    await this.emailService.sendWelcomeEmail(
+      savedUser.email,
+      savedUser.firstName,
+    );
+
+    return savedUser;
+  }
+
+  async validateUser(email: string, pass: string): Promise<any> {
+    const user = await this.userService.findByEmail(email);
+    
+    if (user && await user.validatePassword(pass)) {
+      const { password, ...result } = user;
+      return result;
+    }
+    return null;
+  }
+
+  async login(loginDto: LoginDto): Promise<AuthResponse> {
+    const user = await this.userRepository.findOne({
+      where: { email: loginDto.email },
+      relations: ['role'],
+    });
+
+    if (!user || !user.isActive) {
+      throw new UnauthorizedException('Invalid credentials or inactive account');
+    }
+
+    const isPasswordValid = await user.validatePassword(loginDto.password);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const tokens = await this.generateTokens(user);
+
+    return {
+      user,
+      ...tokens,
+    };
+  }
+
+  async getMe(userId: number): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['role'],
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
+  }
+
+  async refreshToken(refreshTokenDto: RefreshTokenDto): Promise<AuthResponse> {
+    try {
+      const payload = this.jwtService.verify(refreshTokenDto.refreshToken, {
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      });
+
+      const user = await this.userRepository.findOne({
+        where: { id: Number(payload.sub) },
+        relations: ['role'],
+      });
+
+      if (!user || !user.isActive) {
+        throw new UnauthorizedException();
+      }
+
+      const tokens = await this.generateTokens(user);
+
+      return {
+        user,
+        ...tokens,
+      };
+    } catch {
+      throw new UnauthorizedException('Invalid or expired refresh token');
+    }
+  }
+
+  async changePassword(userId: number, changePasswordDto: ChangePasswordDto) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const isPasswordValid = await user.validatePassword(changePasswordDto.currentPassword);
+
+    if (!isPasswordValid) {
+      throw new BadRequestException('Current password is incorrect');
+    }
+
+    user.password = changePasswordDto.newPassword;
+    await this.userRepository.save(user);
+
+    await this.emailService.sendPasswordChangedEmail(user.email, user.firstName);
+
+    return { message: 'Password changed successfully' };
+  }
+
+
+  async forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
+    const user = await this.userRepository.findOne({
+      where: { email: forgotPasswordDto.email },
+    });
+
+    if (!user) {
+      return { message: 'If email exists, a 6-digit reset token has been sent' };
+    }
+
+    const resetToken = Math.floor(100000 + Math.random() * 900000).toString();
+    user.resetPasswordToken = crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
+    
+    user.resetPasswordExpiresAt = new Date(Date.now() + 10 * 60 * 1000); 
+
+    await this.userRepository.save(user);
+
+    await this.emailService.sendPasswordResetEmail(user.email, user.firstName, resetToken);
+
+    return { message: 'If email exists, a 6-digit reset token has been sent' };
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto) {
+    const hashedToken = crypto
+      .createHash('sha256')
+      .update(resetPasswordDto.token)
+      .digest('hex');
+
+    const user = await this.userRepository.findOne({
+      where: {
+        resetPasswordToken: hashedToken,
+        resetPasswordExpiresAt: MoreThan(new Date()),
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestException('Invalid or expired token');
+    }
+
+    user.password = resetPasswordDto.newPassword;
+    user.resetPasswordToken = null;
+    user.resetPasswordExpiresAt = null;
+
+    await this.userRepository.save(user);
+
+    await this.emailService.sendPasswordResetConfirmation(user.email, user.firstName);
+
+    return { message: 'Password reset successful' };
+  }
+
+  private async generateTokens(user: User): Promise<{ accessToken: string; refreshToken: string }> {
+  const userRole = typeof user.role === 'object' ? user.role.name : user.role;
+
+  const payload: TokenPayload = {
+    sub: user.id, 
+    email: user.email,
+    role: userRole, 
+  };
+
+  const [accessToken, refreshToken] = await Promise.all([
+    this.jwtService.signAsync(payload, {
+      secret: this.configService.get<string>('JWT_SECRET'),
+      expiresIn: '1h',
+    }),
+    this.jwtService.signAsync(payload, {
+      secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      expiresIn: '30d',
+    }),
+  ]);
+
+  return { accessToken, refreshToken };
+}
+}

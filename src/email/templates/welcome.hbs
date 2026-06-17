@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to {{oceaned}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+        }
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+        }
+        .credentials {
+            background-color: #f0f8ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0066cc;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to {{oceaned}}!</h1>
+        </div>
+        <div class="content">
+            <p>Hello <strong>{{firstName}}</strong>,</p>
+            
+            <p>Welcome aboard! Your administrator has created an account for you on the OCEANED Application Management System.</p>
+            
+            <div class="credentials">
+                <h3>Your Login Credentials:</h3>
+                <p><strong>Email:</strong> {{email}}</p>
+            </div>
+            
+            <p><strong>Important:</strong> For security reasons, please change your password immediately after your first login.</p>
+            
+            <p style="text-align: center;">
+                <a href="{{loginUrl}}" class="button">Login to Your Account</a>
+            </p>
+            
+            <h3>Next Steps:</h3>
+            <ol>
+                <li>Click the button above to login</li>
+                <li>Use your email and temporary password</li>
+                <li>Complete your profile information</li>
+                <li>Change your password in settings</li>
+            </ol>
+            
+            <p>If you have any questions or need assistance, please don't hesitate to contact our support team at <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>.</p>
+            
+            <p>Best regards,<br>The {{oceaned}} Team</p>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2026 {{oceaned}}. All rights reserved.</p>
+            <p>This is an automated email. Please do not reply to this message.</p>
+        </div>
+    </div>
+</body>
+</html>

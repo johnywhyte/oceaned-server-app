@@ -1,0 +1,248 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Project BlogApp {
+  database_type: "MySQL"
+}
+
+Enum roles {
+  STUDENT
+  ADMIN
+  SUPER_ADMIN
+}
+
+Enum post_status {
+  DRAFT
+  SCHEDULED
+  PUBLISHED
+  ARCHIVED
+}
+
+Enum comment_status {
+  PENDING
+  APPROVED
+  HIDDEN
+  DELETED
+}
+
+Enum report_status {
+  PENDING
+  REVIEWED
+  RESOLVED
+}
+
+Enum reaction_type {
+  LIKE
+  DISLIKE
+}
+
+Enum popularity_period {
+  WEEKLY
+  MONTHLY
+}
+
+Table users {
+  id bigserial [pk]
+  uuid uuid [unique, not null, default: `gen_random_uuid()`]
+  email varchar(255) [unique, not null]
+  password varchar(255) [not null]
+  first_name varchar(100)
+  last_name varchar(100)
+  role roles [not null]
+  is_active boolean [default: true]
+  phone_number varchar(50)
+  country varchar(100)
+  reset_password_token varchar(255)
+  reset_password_expires_at timestamptz
+  created_at timestamptz [default: `now()`]
+  updated_at timestamptz [default: `now()`]
+  deleted_at timestamptz
+
+  Indexes {
+    (email)
+    (role)
+    (uuid)
+  }
+}
+
+Table categories {
+  id uuid [pk, default: `gen_random_uuid()`]
+  name varchar [unique]
+  slug varchar [unique]
+  description text
+  seo_meta_title varchar
+  seo_meta_description text
+  is_enabled boolean [default: true]
+  created_by bigint [ref: > users.id]
+  created_at timestamptz [default: `now()`]
+  updated_at timestamptz [default: `now()`]
+
+  Indexes {
+    (slug)
+    (is_enabled)
+  }
+}
+
+Table tags {
+  id uuid [pk, default: `gen_random_uuid()`]
+  name varchar [unique]
+  slug varchar [unique]
+  created_at timestamptz [default: `now()`]
+
+  Indexes {
+    (slug)
+  }
+}
+
+Table posts {
+  id uuid [pk, default: `gen_random_uuid()`]
+  title varchar
+  slug varchar [unique]
+  featured_image_url varchar
+  content text
+  author_id bigint [ref: > users.id]
+  read_time_minutes int
+  status post_status
+  scheduled_at timestamptz
+  published_at timestamptz
+  seo_meta_title varchar
+  seo_meta_description text
+  views_count bigint [default: 0]
+  likes_count bigint [default: 0]
+  comments_count bigint [default: 0]
+  is_featured boolean [default: false]
+  created_at timestamptz [default: `now()`]
+  updated_at timestamptz [default: `now()`]
+
+  Indexes {
+    (slug)
+    (author_id)
+    (status)
+    (published_at)
+    (status, published_at)
+    (is_featured)
+  }
+}
+
+Table post_categories {
+  post_id uuid [ref: > posts.id]
+  category_id uuid [ref: > categories.id]
+
+  Indexes {
+    (post_id, category_id) [pk]
+    (category_id)
+  }
+}
+
+Table post_tags {
+  post_id uuid [ref: > posts.id]
+  tag_id uuid [ref: > tags.id]
+
+  Indexes {
+    (post_id, tag_id) [pk]
+    (tag_id)
+  }
+}
+
+Table post_likes {
+  id bigserial [pk]
+  post_id uuid [ref: > posts.id]
+  user_id bigint [ref: > users.id]
+  created_at timestamptz [default: `now()`]
+
+  Indexes {
+    (post_id, user_id) [unique]
+    (post_id)
+  }
+}
+
+Table comments {
+  id uuid [pk, default: `gen_random_uuid()`]
+  post_id uuid [ref: > posts.id]
+  user_id bigint [ref: > users.id]
+  parent_id uuid [ref: - comments.id]
+  content text
+  status comment_status
+  likes_count int [default: 0]
+  dislikes_count int [default: 0]
+  created_at timestamptz [default: `now()`]
+  updated_at timestamptz [default: `now()`]
+
+  Indexes {
+    (post_id)
+    (parent_id)
+    (status)
+    (post_id, status, created_at)
+  }
+}
+
+Table comment_reactions {
+  id bigserial [pk]
+  comment_id uuid [ref: > comments.id]
+  user_id bigint [ref: > users.id]
+  reaction reaction_type
+  created_at timestamptz [default: `now()`]
+
+  Indexes {
+    (comment_id, user_id) [unique]
+    (comment_id)
+  }
+}
+
+Table comment_reports {
+  id bigserial [pk]
+  comment_id uuid [ref: > comments.id]
+  reported_by bigint [ref: > users.id]
+  reason text
+  status report_status
+  reviewed_by bigint [ref: - users.id]
+  created_at timestamptz [default: `now()`]
+  updated_at timestamptz [default: `now()`]
+
+  Indexes {
+    (comment_id)
+    (status)
+  }
+}
+
+Table post_views_events {
+  id bigserial [pk]
+  post_id uuid [ref: > posts.id]
+  user_id bigint [ref: - users.id]
+  viewed_at timestamptz [default: `now()`]
+
+  Indexes {
+    (post_id)
+    (viewed_at)
+  }
+}
+
+Table saved_posts {
+  id bigserial [pk]
+  user_id bigint [ref: > users.id]
+  post_id uuid [ref: > posts.id]
+  created_at timestamptz [default: `now()`]
+
+  Indexes {
+    (user_id, post_id) [unique]
+    (user_id)
+  }
+}
+
+Table post_popularity_stats {
+  id uuid [pk, default: `gen_random_uuid()`]
+  post_id uuid [ref: > posts.id]
+  period popularity_period
+  period_start date
+  views_count bigint
+  likes_count bigint
+  comments_count bigint
+  calculated_at timestamptz
+
+  Indexes {
+    (post_id, period, period_start) [unique]
+    (period, views_count)
+    (period, likes_count)
+  }
+}
+
