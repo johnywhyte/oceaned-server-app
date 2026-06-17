@@ -18,6 +18,7 @@ import { BlogsModule } from './blogs/blogs.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { ApplicationsModule } from './applications/applications.module';
 import { DocumentsModule } from './documents/documents.module';
+import { UploadsModule } from './uploads/uploads.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -80,6 +81,7 @@ import * as Joi from '@hapi/joi';
     ProfilesModule,
     ApplicationsModule,
     DocumentsModule,
+    UploadsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

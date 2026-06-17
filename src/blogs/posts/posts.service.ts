@@ -7,6 +7,8 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from '../entities/post.entity';
+import { PostCategory } from '../entities/post-category.entity';
+import { PostTag } from '../entities/post-tag.entity';
 import { Repository } from 'typeorm';
 import { PostStatus } from '../enums/blog.enums';
 import { PublishPostDto } from './dto/publish-post.dto';
@@ -18,11 +20,17 @@ export class PostsService {
   constructor(
     @InjectRepository(Post)
     private readonly postRepository: Repository<Post>,
+    @InjectRepository(PostCategory)
+    private readonly postCategoryRepository: Repository<PostCategory>,
+    @InjectRepository(PostTag)
+    private readonly postTagRepository: Repository<PostTag>,
   ) {}
 
   async create(createPostDto: CreatePostDto, authorId: number): Promise<Post> {
+    const { category_ids, tag_ids, ...postData } = createPostDto;
+
     const existingPost = await this.postRepository.findOne({
-      where: [{ title: createPostDto.title }, { slug: createPostDto.slug }],
+      where: [{ title: postData.title }, { slug: postData.slug }],
     });
 
     if (existingPost && existingPost.author_id === authorId) {
@@ -30,11 +38,28 @@ export class PostsService {
         'A post with the same title or slug already exists for this author',
       );
     }
+
+    if (!postData.slug) {
+      postData.slug = postData.title;
+    }
+
+    if (
+      postData.status === PostStatus.PUBLISHED &&
+      !(postData as Post).published_at
+    ) {
+      (postData as Post).published_at = new Date();
+    }
+
     const post = this.postRepository.create({
-      ...createPostDto,
+      ...postData,
       author_id: authorId,
     });
-    return this.postRepository.save(post);
+    const saved = await this.postRepository.save(post);
+
+    await this.syncCategories(saved.id, category_ids);
+    await this.syncTags(saved.id, tag_ids);
+
+    return this.findOneById(saved.id, false);
   }
 
   async findAllPosts(query: PostQueryDto): Promise<AllPostsResponse> {
@@ -95,7 +120,7 @@ export class PostsService {
     const [data, total] = await qb.getManyAndCount();
 
     return {
-      data,
+      data: data.map((post) => this.flatten(post)),
       meta: {
         total,
         page,
@@ -125,10 +150,11 @@ export class PostsService {
 
     const qb = this.postRepository
       .createQueryBuilder('post')
-      .leftJoin('post.postTags', 'pt')
-      .leftJoin('pt.tag', 'tag')
-      .leftJoin('post.postCategories', 'pc')
-      .leftJoin('pc.category', 'category')
+      .leftJoinAndSelect('post.author', 'author')
+      .leftJoinAndSelect('post.postCategories', 'pc')
+      .leftJoinAndSelect('pc.category', 'category')
+      .leftJoinAndSelect('post.postTags', 'pt')
+      .leftJoinAndSelect('pt.tag', 'tag')
       .where('post.id != :postId', { postId })
       .andWhere('post.status = :status', { status: 'PUBLISHED' });
 
@@ -142,7 +168,8 @@ export class PostsService {
 
     qb.orderBy('post.created_at', 'DESC').take(5);
 
-    return qb.getMany();
+    const related = await qb.getMany();
+    return related.map((p) => this.flatten(p));
   }
 
   async findOne(idOrSlug: string): Promise<Post> {
@@ -158,19 +185,27 @@ export class PostsService {
     }
   }
 
-  async findOneById(id: string): Promise<Post> {
+  async findOneById(id: string, incrementViews = true): Promise<Post> {
     const post = await this.postRepository.findOne({
       where: { id },
-      relations: ['postTags', 'postCategories'],
+      relations: [
+        'author',
+        'postCategories',
+        'postCategories.category',
+        'postTags',
+        'postTags.tag',
+      ],
     });
 
     if (!post) {
       throw new NotFoundException('Post not found');
     }
 
-    await this.incrementViews(post.id);
+    if (incrementViews) {
+      await this.incrementViews(post.id);
+    }
 
-    return post;
+    return this.flatten(post);
   }
 
   async findOneBySlug(slug: string): Promise<Post> {
@@ -191,15 +226,28 @@ export class PostsService {
 
     await this.incrementViews(post.id);
 
-    return post;
+    return this.flatten(post);
   }
 
   async update(id: string, updatePostDto: UpdatePostDto): Promise<Post> {
-    const post = await this.findOne(id);
+    const { category_ids, tag_ids, ...postData } = updatePostDto;
 
-    Object.assign(post, updatePostDto);
+    const post = await this.postRepository.findOne({ where: { id } });
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
 
-    return this.postRepository.save(post);
+    Object.assign(post, postData);
+    await this.postRepository.save(post);
+
+    if (category_ids) {
+      await this.syncCategories(id, category_ids);
+    }
+    if (tag_ids) {
+      await this.syncTags(id, tag_ids);
+    }
+
+    return this.findOneById(id, false);
   }
 
   async publishPost(id: string, dto: PublishPostDto): Promise<Post> {
@@ -222,15 +270,65 @@ export class PostsService {
       post.scheduled_at = new Date(dto.scheduled_at);
     }
 
-    return this.postRepository.save(post);
+    await this.postRepository.save(post);
+    return this.findOneById(id, false);
   }
 
   async remove(id: string): Promise<void> {
-    const post = await this.findOne(id);
+    const post = await this.postRepository.findOne({ where: { id } });
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
     await this.postRepository.remove(post);
   }
 
   async incrementViews(postId: string): Promise<void> {
     await this.postRepository.increment({ id: postId }, 'views_count', 1);
+  }
+
+  /** Replace the post↔category links with the provided category UUIDs. */
+  private async syncCategories(
+    postId: string,
+    categoryIds?: string[],
+  ): Promise<void> {
+    if (categoryIds === undefined) return;
+
+    await this.postCategoryRepository.delete({ post_id: postId });
+
+    const unique = [...new Set(categoryIds)];
+    if (unique.length === 0) return;
+
+    const rows = unique.map((category_id) =>
+      this.postCategoryRepository.create({ post_id: postId, category_id }),
+    );
+    await this.postCategoryRepository.save(rows);
+  }
+
+  /** Replace the post↔tag links with the provided tag UUIDs. */
+  private async syncTags(postId: string, tagIds?: string[]): Promise<void> {
+    if (tagIds === undefined) return;
+
+    await this.postTagRepository.delete({ post_id: postId });
+
+    const unique = [...new Set(tagIds)];
+    if (unique.length === 0) return;
+
+    const rows = unique.map((tag_id) =>
+      this.postTagRepository.create({ post_id: postId, tag_id }),
+    );
+    await this.postTagRepository.save(rows);
+  }
+
+  /**
+   * Flatten the join-table relations into convenient `categories`/`tags`
+   * arrays so the frontend doesn't have to dig through postCategories/postTags.
+   */
+  private flatten(post: Post): Post {
+    const categories = (post.postCategories ?? [])
+      .map((pc) => pc.category)
+      .filter(Boolean);
+    const tags = (post.postTags ?? []).map((pt) => pt.tag).filter(Boolean);
+
+    return Object.assign(post, { categories, tags });
   }
 }

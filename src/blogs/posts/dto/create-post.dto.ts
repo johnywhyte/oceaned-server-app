@@ -5,6 +5,7 @@ import {
   IsBoolean,
   IsArray,
   IsInt,
+  IsUUID,
   IsDateString,
   IsUrl,
   MaxLength,
@@ -106,22 +107,22 @@ export class CreatePostDto {
   seo_meta_description?: string;
 
   @ApiProperty({
-    description: 'IDs of the categories for the blog post',
-    example: [1, 2],
+    description: 'UUIDs of the categories for the blog post',
+    example: ['f7c33c48-9bf7-4804-ba13-c1392ae2209d'],
     required: false,
   })
   @IsOptional()
   @IsArray()
-  @IsInt({ each: true })
-  category_ids?: number[];
+  @IsUUID('all', { each: true })
+  category_ids?: string[];
 
   @ApiProperty({
-    description: 'IDs of the tags for the blog post',
-    example: [1, 2, 3],
+    description: 'UUIDs of the tags for the blog post',
+    example: ['a1b2c3d4-e5f6-7890-abcd-ef1234567890'],
     required: false,
   })
   @IsOptional()
   @IsArray()
-  @IsInt({ each: true })
-  tag_ids?: number[];
+  @IsUUID('all', { each: true })
+  tag_ids?: string[];
 }

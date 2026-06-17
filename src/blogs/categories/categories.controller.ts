@@ -23,6 +23,7 @@ import { Roles } from 'src/common/decorators/roles.decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { UserRole } from 'src/common/enums';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @ApiTags('Categories')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -74,6 +75,7 @@ export class CategoriesController {
     status: 403,
     description: 'Forbidden. User does not have the required role.',
   })
+  @Public()
   @Get()
   findAll() {
     return this.categoriesService.findAll();
@@ -101,6 +103,7 @@ export class CategoriesController {
     status: 403,
     description: 'Forbidden. User does not have the required role.',
   })
+  @Public()
   @Get(':idOrSlug')
   findOne(@Param('idOrSlug') idOrSlug: string) {
     return this.categoriesService.findOne(idOrSlug);

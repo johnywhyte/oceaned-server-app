@@ -24,6 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { UserRole } from 'src/common/enums/user-role.enum';
+import { Public } from 'src/common/decorators/public.decorator';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiBearerAuth('JWT-auth')
 @ApiTags('Tags')
@@ -62,6 +63,7 @@ export class TagsController {
     description: 'A list of tags has been successfully retrieved.',
     type: [CreateTagDto],
   })
+  @Public()
   @Get()
   findAll() {
     return this.tagsService.findAll();
@@ -86,6 +88,7 @@ export class TagsController {
     type: 'string',
     description: 'The unique ID or slug of the tag to retrieve',
   })
+  @Public()
   @Get(':idOrSlug')
   findOne(@Param('idOrSlug') idOrSlug: string) {
     return this.tagsService.findOne(idOrSlug);

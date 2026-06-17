@@ -5,11 +5,13 @@ import { memoryStorage } from 'multer';
 import { SchoolsController } from './schools.controller';
 import { SchoolsService } from './schools.service';
 import { School } from './entities/school.entity';
+import { Country } from '../scholarship/entities/country.entity';
+import { Program } from '../programs/entities/program.entity';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([School]),
+    TypeOrmModule.forFeature([School, Country, Program]),
     MulterModule.register({
       storage: memoryStorage(),
     }),
