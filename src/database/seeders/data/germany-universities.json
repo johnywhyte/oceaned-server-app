@@ -1,0 +1,2242 @@
+[
+  {
+    "name": "AKAD Hochschulen für Berufstätige, Fachhochschule Leipzig",
+    "website": "http://www.akad.de/",
+    "state": null,
+    "domain": "akad.de",
+    "type": "private"
+  },
+  {
+    "name": "Albert-Ludwigs-Universität Freiburg",
+    "website": "http://www.uni-freiburg.de/",
+    "state": null,
+    "domain": "uni-freiburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Alice-Salomon-Fachhochschule für Sozialarbeit und Sozialpädagogik Berlin",
+    "website": "http://www.asfh-berlin.de/",
+    "state": null,
+    "domain": "asfh-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Augustana Hochschule Neuendettelsau",
+    "website": "http://www.augustana.de/",
+    "state": null,
+    "domain": "augustana.de",
+    "type": "public"
+  },
+  {
+    "name": "Bauhaus Universität Weimar",
+    "website": "http://www.uni-weimar.de/",
+    "state": null,
+    "domain": "uni-weimar.de",
+    "type": "public"
+  },
+  {
+    "name": "Bayerische Julius-Maximilians-Universität Würzburg",
+    "website": "http://www.uni-wuerzburg.de/",
+    "state": null,
+    "domain": "uni-wuerzburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Bergische Universität Gesamthochschule Wuppertal",
+    "website": "http://www.uni-wuppertal.de/",
+    "state": null,
+    "domain": "uni-wuppertal.de",
+    "type": "public"
+  },
+  {
+    "name": "BiTS - Business and Information Technology School gGmbH",
+    "website": "http://www.bits-iserlohn.de/",
+    "state": null,
+    "domain": "bits-iserlohn.de",
+    "type": "private"
+  },
+  {
+    "name": "Brandenburg University of Technology Cottbus - Senftenberg",
+    "website": "https://www.b-tu.de/",
+    "state": "Brandenburg",
+    "domain": "b-tu.de",
+    "type": "public"
+  },
+  {
+    "name": "Brandenburgische Technische Universität Cottbus",
+    "website": "http://www.tu-cottbus.de/",
+    "state": null,
+    "domain": "tu-cottbus.de",
+    "type": "public"
+  },
+  {
+    "name": "Carl von Ossietzky Universität Oldenburg",
+    "website": "https://uol.de/",
+    "state": null,
+    "domain": "uol.de",
+    "type": "public"
+  },
+  {
+    "name": "Christian-Albrechts-Universität Kiel",
+    "website": "http://www.uni-kiel.de/",
+    "state": null,
+    "domain": "uni-kiel.de",
+    "type": "public"
+  },
+  {
+    "name": "CODE University of Applied Sciences Berlin",
+    "website": "http://code.berlin/",
+    "state": null,
+    "domain": "code.berlin",
+    "type": "private"
+  },
+  {
+    "name": "Cologne Business School",
+    "website": "http://www.cbs.de/",
+    "state": null,
+    "domain": "cbs.de",
+    "type": "private"
+  },
+  {
+    "name": "Deutsch-Ordens Fachhochschule Riedlingen, Hochschule für Wirtschaft",
+    "website": "http://www.fh-riedlingen.de/",
+    "state": null,
+    "domain": "fh-riedlingen.de",
+    "type": "public"
+  },
+  {
+    "name": "Deutsche Hochschule für Verwaltungswissenschaften Speyer",
+    "website": "http://www.dhv-speyer.de/",
+    "state": null,
+    "domain": "dhv-speyer.de",
+    "type": "public"
+  },
+  {
+    "name": "Deutsche Sporthochschule Köln",
+    "website": "http://www.dshs-koeln.de/",
+    "state": null,
+    "domain": "dshs-koeln.de",
+    "type": "public"
+  },
+  {
+    "name": "Deutsche Telekom Fachhochschule Leipzig",
+    "website": "http://www.fh-telekom-leipzig.de/",
+    "state": null,
+    "domain": "fh-telekom-leipzig.de",
+    "type": "public"
+  },
+  {
+    "name": "Deutsche Universität für Verwaltungswissenschaften Speyer",
+    "website": "https://www.uni-speyer.de/",
+    "state": "Rheinland-Pfalz",
+    "domain": "uni-speyer.de",
+    "type": "public"
+  },
+  {
+    "name": "DIPLOMA-Fachhochschule Ölsnitz/Vogtland",
+    "website": "http://www.diploma.de/",
+    "state": null,
+    "domain": "diploma.de",
+    "type": "private"
+  },
+  {
+    "name": "Duale Hochschule Baden-Wuerttemberg Mannheim",
+    "website": "http://www.dhbw-mannheim.de/",
+    "state": "null",
+    "domain": "dhbw-mannheim.de",
+    "type": "public"
+  },
+  {
+    "name": "Duale Hochschule Baden-Württemberg",
+    "website": "http://www.dhbw.de/",
+    "state": null,
+    "domain": "dhbw.de",
+    "type": "public"
+  },
+  {
+    "name": "Duale Hochschule Baden-Württemberg Center for Advanced Studies (CAS)",
+    "website": "http://www.cas.dhbw.de/",
+    "state": "null",
+    "domain": "cas.dhbw.de",
+    "type": "public"
+  },
+  {
+    "name": "Duale Hochschule Baden-Württemberg Heidenheim",
+    "website": "http://www.heidenheim.dhbw.de/",
+    "state": "null",
+    "domain": "heidenheim.dhbw.de",
+    "type": "public"
+  },
+  {
+    "name": "Duale Hochschule Baden-Württemberg Heilbronn",
+    "website": "http://www.heilbronn.dhbw.de/",
+    "state": "null",
+    "domain": "heilbronn.dhbw.de",
+    "type": "public"
+  },
+  {
+    "name": "Duale Hochschule Baden-Württemberg Karlsruhe",
+    "website": "http://www.dhbw-karlsruhe.de/",
+    "state": "null",
+    "domain": "dhbw-karlsruhe.de",
+    "type": "public"
+  },
+  {
+    "name": "Duale Hochschule Baden-Württemberg Lörrach",
+    "website": "http://www.dhbw-loerrach.de/",
+    "state": "null",
+    "domain": "dhbw-loerrach.de",
+    "type": "public"
+  },
+  {
+    "name": "Duale Hochschule Baden-Württemberg Mosbach",
+    "website": "http://www.dhbw-mosbach.de/",
+    "state": "null",
+    "domain": "dhbw-mosbach.de",
+    "type": "public"
+  },
+  {
+    "name": "Duale Hochschule Baden-Württemberg Ravensburg",
+    "website": "http://www.ravensburg.dhbw.de/",
+    "state": "null",
+    "domain": "ravensburg.dhbw.de",
+    "type": "public"
+  },
+  {
+    "name": "Duale Hochschule Baden-Württemberg Stuttgart",
+    "website": "http://www.dhbw-stuttgart.de/",
+    "state": "null",
+    "domain": "dhbw-stuttgart.de",
+    "type": "public"
+  },
+  {
+    "name": "Duale Hochschule Baden-Württemberg Villingen-Schwenningen",
+    "website": "http://www.dhbw-vs.de/",
+    "state": "null",
+    "domain": "dhbw-vs.de",
+    "type": "public"
+  },
+  {
+    "name": "E.A.P. Europäische Wirtschaftshochschule Berlin",
+    "website": "http://www.eap.net/",
+    "state": null,
+    "domain": "eap.net",
+    "type": "public"
+  },
+  {
+    "name": "Eberhard-Karls-Universität Tübingen",
+    "website": "http://www.uni-tuebingen.de/",
+    "state": null,
+    "domain": "uni-tuebingen.de",
+    "type": "public"
+  },
+  {
+    "name": "EBS Universität",
+    "website": "https://www.ebs.edu/",
+    "state": null,
+    "domain": "ebs.edu",
+    "type": "public"
+  },
+  {
+    "name": "Ernst-Moritz-Arndt Universität Greifswald",
+    "website": "http://www.uni-greifswald.de/",
+    "state": null,
+    "domain": "uni-greifswald.de",
+    "type": "public"
+  },
+  {
+    "name": "Europa Fachhochschule Fresenius",
+    "website": "http://www.fh-fresenius.de/",
+    "state": null,
+    "domain": "fh-fresenius.de",
+    "type": "private"
+  },
+  {
+    "name": "Europa-Universität Viadrina",
+    "website": "https://www.europa-uni.de/",
+    "state": "Brandenburg",
+    "domain": "europa-uni.de",
+    "type": "public"
+  },
+  {
+    "name": "Europa-Universität Viadrina Frankfurt (Oder)",
+    "website": "http://www.euv-frankfurt-o.de/",
+    "state": null,
+    "domain": "euv-frankfurt-o.de",
+    "type": "public"
+  },
+  {
+    "name": "European Business School Schloß Reichartshausen",
+    "website": "http://www.ebs.de/",
+    "state": null,
+    "domain": "ebs.de",
+    "type": "private"
+  },
+  {
+    "name": "European College of Liberal Arts",
+    "website": "http://www.ecla.de/",
+    "state": null,
+    "domain": "ecla.de",
+    "type": "public"
+  },
+  {
+    "name": "European Management School",
+    "website": "http://www.ems-mainz.de/",
+    "state": null,
+    "domain": "ems-mainz.de",
+    "type": "public"
+  },
+  {
+    "name": "Europäische Betriebswirtschafts-Akademie",
+    "website": "http://www.eba-muenchen.de/",
+    "state": null,
+    "domain": "eba-muenchen.de",
+    "type": "private"
+  },
+  {
+    "name": "Europäische Fachhochschule",
+    "website": "http://www.eufh.de/",
+    "state": null,
+    "domain": "eufh.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Fachhochschule Berlin, Fachhochschule für Sozialarbeit und Sozialpädagogik",
+    "website": "http://www.evfh-berlin.de/",
+    "state": null,
+    "domain": "evfh-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Fachhochschule Darmstadt",
+    "website": "https://www.eh-darmstadt.de/",
+    "state": null,
+    "domain": "eh-darmstadt.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Fachhochschule Freiburg, Hochschule für Soziale Arbeit, Diakonie und Religionspädagogik",
+    "website": "http://www.efh-freiburg.de/",
+    "state": null,
+    "domain": "efh-freiburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Fachhochschule für Religionspädagogik, und Gemeindediakonie Moritzburg",
+    "website": "http://www.fhs-moritzburg.de/",
+    "state": null,
+    "domain": "fhs-moritzburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Fachhochschule für Sozialpädagogik der \"Diakonenanstalt des Rauhen Hauses\" Hamburg",
+    "website": "http://www.rauheshaus.de/",
+    "state": null,
+    "domain": "rauheshaus.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Fachhochschule Hannover",
+    "website": "http://www.efh-hannover.de/",
+    "state": null,
+    "domain": "efh-hannover.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Fachhochschule Ludwigshafen Hochschule für Sozial- und Gesundheitswesen",
+    "website": "http://www.efhlu.de/",
+    "state": null,
+    "domain": "efhlu.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Fachhochschule Nürnberg",
+    "website": "http://www.evfh-nuernberg.de/",
+    "state": null,
+    "domain": "evfh-nuernberg.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Fachhochschule Reutlingen-Ludwigsburg, Hochschule für Soziale Arbeit, Religionspädagogik und Diakonie",
+    "website": "http://www.efh-reutlingen-ludwigsburg.de/",
+    "state": null,
+    "domain": "efh-reutlingen-ludwigsburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Fachhochschule Rheinland-Westfalen-Lippe",
+    "website": "http://www.efh-bochum.de/",
+    "state": null,
+    "domain": "efh-bochum.de",
+    "type": "public"
+  },
+  {
+    "name": "Evangelische Hochschule für Soziale Arbeit Dresden (FH)",
+    "website": "http://www.ehs-dresden.de/",
+    "state": null,
+    "domain": "ehs-dresden.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Aachen",
+    "website": "http://www.fh-aachen.de/",
+    "state": null,
+    "domain": "fh-aachen.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Aschaffenburg",
+    "website": "http://www.fh-aschaffenburg.de/",
+    "state": null,
+    "domain": "fh-aschaffenburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Biberach, Hochschule für Bauwesen und Wirtschaft",
+    "website": "http://www.fh-biberach.de/",
+    "state": null,
+    "domain": "fh-biberach.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Bielefeld",
+    "website": "http://www.fh-bielefeld.de/",
+    "state": null,
+    "domain": "fh-bielefeld.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Bingen",
+    "website": "http://www.fh-bingen.de/",
+    "state": null,
+    "domain": "fh-bingen.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Bochum",
+    "website": "http://www.fh-bochum.de/",
+    "state": null,
+    "domain": "fh-bochum.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Brandenburg",
+    "website": "http://www.fh-brandenburg.de/",
+    "state": null,
+    "domain": "fh-brandenburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule der Wirtschaft",
+    "website": "http://www.fhdw.de/",
+    "state": null,
+    "domain": "fhdw.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule des Mittelstandes (FHM)",
+    "website": "http://www.fhm-mittelstand.de/",
+    "state": null,
+    "domain": "fhm-mittelstand.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Dortmund",
+    "website": "http://www.fh-dortmund.de/",
+    "state": null,
+    "domain": "fh-dortmund.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Eberswalde",
+    "website": "http://www.fh-eberswalde.de/",
+    "state": null,
+    "domain": "fh-eberswalde.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Erfurt",
+    "website": "http://www.fh-erfurt.de/",
+    "state": null,
+    "domain": "fh-erfurt.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Flensburg",
+    "website": "http://www.fh-flensburg.de/",
+    "state": null,
+    "domain": "fh-flensburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Frankfurt am Main",
+    "website": "http://www.fh-frankfurt.de/",
+    "state": null,
+    "domain": "fh-frankfurt.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Furtwangen, Hochschule für Technik und Wirtschaft",
+    "website": "http://www.fh-furtwangen.de/",
+    "state": null,
+    "domain": "fh-furtwangen.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule für das öffentliche Bibliothekswesen Bonn",
+    "website": "http://www.fhoebb.de/",
+    "state": null,
+    "domain": "fhoebb.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule für die Wirtschaft",
+    "website": "http://www.fhdw.bib.de/",
+    "state": null,
+    "domain": "fhdw.bib.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule für Oekonomie und Management (FOM)",
+    "website": "http://www.fom.de/",
+    "state": null,
+    "domain": "fom.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule für Verwaltung und Rechtspflege Berlin",
+    "website": "http://www.fhvr.berlin.de/",
+    "state": null,
+    "domain": "fhvr.berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule für Wirtschaft Berlin",
+    "website": "http://www.fhw-berlin.de/",
+    "state": null,
+    "domain": "fhw-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Gelsenkirchen",
+    "website": "http://www.fh-gelsenkirchen.de/",
+    "state": null,
+    "domain": "fh-gelsenkirchen.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Gießen-Friedberg",
+    "website": "http://www.fh-giessen.de/",
+    "state": null,
+    "domain": "fh-giessen.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Hamburg",
+    "website": "http://www.fh-hamburg.de/",
+    "state": null,
+    "domain": "fh-hamburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Hannover",
+    "website": "http://www.fh-hannover.de/",
+    "state": null,
+    "domain": "fh-hannover.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Heidelberg",
+    "website": "http://www.fh-heidelberg.de/",
+    "state": null,
+    "domain": "fh-heidelberg.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Heilbronn, Hochschule für Technik und Wirtschaft",
+    "website": "http://www.fh-heilbronn.de/",
+    "state": null,
+    "domain": "fh-heilbronn.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Hildesheim/Holzminden/Göttingen, Hochschule für angewandte Wissenschaft und Kunst",
+    "website": "http://www.fh-hildesheim.de/",
+    "state": null,
+    "domain": "fh-hildesheim.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Hof",
+    "website": "http://www.fh-hof.de/",
+    "state": null,
+    "domain": "fh-hof.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Jena",
+    "website": "http://www.fh-jena.de/",
+    "state": null,
+    "domain": "fh-jena.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Kaiserslautern",
+    "website": "http://www.fh-kl.de/",
+    "state": null,
+    "domain": "fh-kl.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Karlsruhe, Hochschule für Technik",
+    "website": "http://www.fh-karlsruhe.de/",
+    "state": null,
+    "domain": "fh-karlsruhe.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Kempten, Hochschule für Technik und Wirtschaft",
+    "website": "http://www.fh-Kempten.de/",
+    "state": null,
+    "domain": "fh-kempten.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Kiel",
+    "website": "http://www.fh-kiel.de/",
+    "state": null,
+    "domain": "fh-kiel.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Koblenz",
+    "website": "http://www.fh-koblenz.de/",
+    "state": null,
+    "domain": "fh-koblenz.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Konstanz, Hochschule für Technik, Wirtschaft und Gestaltung",
+    "website": "http://www.fh-konstanz.de/",
+    "state": null,
+    "domain": "fh-konstanz.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Landshut, Hochschule für Wirtschaft - Sozialwesen - Technik",
+    "website": "http://www.fh-landshut.de/",
+    "state": null,
+    "domain": "fh-landshut.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Lausitz",
+    "website": "http://www.fh-lausitz.de/",
+    "state": null,
+    "domain": "fh-lausitz.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Lippe",
+    "website": "http://www.fh-lippe.de/",
+    "state": null,
+    "domain": "fh-lippe.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Ludwigshafen, Hochschule für Wirtschaft",
+    "website": "http://www.fh-ludwigshafen.de/",
+    "state": null,
+    "domain": "fh-ludwigshafen.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Lübeck",
+    "website": "http://www.fh-luebeck.de/",
+    "state": null,
+    "domain": "fh-luebeck.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Mainz",
+    "website": "http://www.fh-mainz.de/",
+    "state": null,
+    "domain": "fh-mainz.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Mannheim, Hochschule für Sozialwesen",
+    "website": "http://www.fhs-mannheim.de/",
+    "state": null,
+    "domain": "fhs-mannheim.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Mannheim, Hochschule für Technik und Gestaltung",
+    "website": "http://www.fh-mannheim.de/",
+    "state": null,
+    "domain": "fh-mannheim.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Merseburg",
+    "website": "http://www.fh-merseburg.de/",
+    "state": null,
+    "domain": "fh-merseburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule München",
+    "website": "http://www.fh-muenchen.de/",
+    "state": null,
+    "domain": "fh-muenchen.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Münster",
+    "website": "http://www.fh-muenster.de/",
+    "state": null,
+    "domain": "fh-muenster.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Neubrandenburg",
+    "website": "http://www.fh-nb.de/",
+    "state": null,
+    "domain": "fh-nb.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Niederrhein",
+    "website": "http://www.fh-niederrhein.de/",
+    "state": null,
+    "domain": "fh-niederrhein.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Nordhausen",
+    "website": "http://www.fh-nordhausen.de/",
+    "state": null,
+    "domain": "fh-nordhausen.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Nordostniedersachsen",
+    "website": "http://www.fhnon.de/",
+    "state": null,
+    "domain": "fhnon.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Nürtingen, Hochschule für Wirtschaft, Landwirtschaft und Landespflege",
+    "website": "http://www.fh-nuertingen.de/",
+    "state": null,
+    "domain": "fh-nuertingen.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Offenburg, Hochschule für Technik und Wirtschaft",
+    "website": "http://www.fh-offenburg.de/",
+    "state": null,
+    "domain": "fh-offenburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Oldenburg/Ostfriesland/Wilhelmshaven",
+    "website": "http://www.fh-oow.de/",
+    "state": null,
+    "domain": "fh-oow.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Osnabrück",
+    "website": "http://www.fh-osnabrueck.de/",
+    "state": null,
+    "domain": "fh-osnabrueck.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Pforzheim, Hochschule für Gestaltung, Technik und Wirtschaft",
+    "website": "http://www.fh-pforzheim.de/",
+    "state": null,
+    "domain": "fh-pforzheim.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Potsdam",
+    "website": "http://www.fh-potsdam.de/",
+    "state": null,
+    "domain": "fh-potsdam.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Ravensburg-Weingarten",
+    "website": "http://www.fh-weingarten.de/",
+    "state": null,
+    "domain": "fh-weingarten.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Regensburg",
+    "website": "http://www.fh-regensburg.de/",
+    "state": null,
+    "domain": "fh-regensburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Reutlingen, Hochschule für Technik und Wirtschaft",
+    "website": "http://www.fh-reutlingen.de/",
+    "state": null,
+    "domain": "fh-reutlingen.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Rosenheim, Hochschule für Technik und Wirtschaft",
+    "website": "http://www.fh-rosenheim.de/",
+    "state": null,
+    "domain": "fh-rosenheim.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Rottenburg, Hochschule für Forstwirtschaft",
+    "website": "http://www.fh-rottenburg.de/",
+    "state": null,
+    "domain": "fh-rottenburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Schmalkalden",
+    "website": "http://www.fh-schmalkalden.de/",
+    "state": null,
+    "domain": "fh-schmalkalden.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Schwäbisch Gmünd, Hochschule für Gestaltung",
+    "website": "http://www.hfg-gmuend.de/",
+    "state": null,
+    "domain": "hfg-gmuend.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Schwäbisch Hall, Hochschule für Gestaltung",
+    "website": "http://www.fh-schwaebischhall.de/",
+    "state": null,
+    "domain": "fh-schwaebischhall.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Stralsund",
+    "website": "http://www.fh-stralsund.de/",
+    "state": null,
+    "domain": "fh-stralsund.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Stuttgart, Hochschule der Medien",
+    "website": "http://www.hdm-stuttgart.de/",
+    "state": null,
+    "domain": "hdm-stuttgart.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Stuttgart, Hochschule für Technik",
+    "website": "http://www.fht-stuttgart.de/",
+    "state": null,
+    "domain": "fht-stuttgart.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Trier, Hochschule für Technik, Wirtschaft und Gestaltung",
+    "website": "http://www.fh-trier.de/",
+    "state": null,
+    "domain": "fh-trier.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule und Berufskollegs NTA, Prof.Dr. Grübler gemein. GmbH",
+    "website": "http://www.fh-isny.de/",
+    "state": null,
+    "domain": "fh-isny.de",
+    "type": "private"
+  },
+  {
+    "name": "Fachhochschule Wedel",
+    "website": "http://www.fh-wedel.de/",
+    "state": null,
+    "domain": "fh-wedel.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Weihenstephan",
+    "website": "http://www.fh-weihenstephan.de/",
+    "state": null,
+    "domain": "fh-weihenstephan.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Westküste, Hochschule für Wirtschaft und Technik",
+    "website": "http://www.fh-westkueste.de/",
+    "state": null,
+    "domain": "fh-westkueste.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Wiesbaden",
+    "website": "http://www.fh-wiesbaden.de/",
+    "state": null,
+    "domain": "fh-wiesbaden.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Worms",
+    "website": "http://www.fh-worms.de/",
+    "state": null,
+    "domain": "fh-worms.de",
+    "type": "public"
+  },
+  {
+    "name": "Fachhochschule Würzburg - Schweinfurt",
+    "website": "http://www.fh-wuerzburg.de/",
+    "state": null,
+    "domain": "fh-wuerzburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Fern-Fachhochschule Hamburg",
+    "website": "http://www.fern-fh.de/",
+    "state": null,
+    "domain": "fern-fh.de",
+    "type": "public"
+  },
+  {
+    "name": "Fernuniversität Gesamthochschule Hagen",
+    "website": "http://www.fernuni-hagen.de/",
+    "state": null,
+    "domain": "fernuni-hagen.de",
+    "type": "public"
+  },
+  {
+    "name": "Frankfurt School of Finance & Management",
+    "website": "https://www.frankfurt-school.de/",
+    "state": null,
+    "domain": "fs.de",
+    "type": "private"
+  },
+  {
+    "name": "Freie Kunst-Studienstätte Ottersberg",
+    "website": "http://www.fh-ottersberg.de/",
+    "state": null,
+    "domain": "fh-ottersberg.de",
+    "type": "public"
+  },
+  {
+    "name": "Freie Universität Berlin",
+    "website": "http://www.fu-berlin.de/",
+    "state": null,
+    "domain": "fu-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Friedrich-Alexander Universität Erlangen-Nürnberg",
+    "website": "https://www.fau.de/",
+    "state": null,
+    "domain": "fau.de",
+    "type": "public"
+  },
+  {
+    "name": "Friedrich-Schiller Universität Jena",
+    "website": "http://www.uni-jena.de/",
+    "state": null,
+    "domain": "uni-jena.de",
+    "type": "public"
+  },
+  {
+    "name": "Georg-August Universität Göttingen",
+    "website": "http://www.uni-goettingen.de/",
+    "state": null,
+    "domain": "uni-goettingen.de",
+    "type": "public"
+  },
+  {
+    "name": "Georg-Simon-Ohm-Fachhochschule Nürnberg",
+    "website": "http://www.fh-nuernberg.de/",
+    "state": null,
+    "domain": "fh-nuernberg.de",
+    "type": "public"
+  },
+  {
+    "name": "Gustav-Siewerth-Akademie",
+    "website": "http://www.siewerth-akademie.de/",
+    "state": null,
+    "domain": "siewerth-akademie.de",
+    "type": "private"
+  },
+  {
+    "name": "Hafencity Universität Hamburg",
+    "website": "http://www.hcu-hamburg.de/",
+    "state": null,
+    "domain": "hcu-hamburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Hamburg University of Applied Sciences (HAW Hamburg)",
+    "website": "https://haw-hamburg.de/",
+    "state": null,
+    "domain": "haw-hamburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Handelshochschule Leipzig",
+    "website": "http://www.hhl.de/",
+    "state": null,
+    "domain": "hhl.de",
+    "type": "public"
+  },
+  {
+    "name": "Heinrich-Heine Universität Düsseldorf",
+    "website": "http://www.uni-duesseldorf.de/",
+    "state": null,
+    "domain": "uni-duesseldorf.de",
+    "type": "public"
+  },
+  {
+    "name": "Hertie School of Governance",
+    "website": "http://www.hertie-school.org/",
+    "state": null,
+    "domain": "hertie-school.org",
+    "type": "private"
+  },
+  {
+    "name": "Hochschule Albstadt-Sigmaringen",
+    "website": "http://www.hs-albsig.de/",
+    "state": null,
+    "domain": "hs-albsig.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Anhalt (FH), Hochschule für angewandte Wissenschaften",
+    "website": "http://www.hs-anhalt.de/",
+    "state": null,
+    "domain": "hs-anhalt.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Bonn-Rhein-Sieg",
+    "website": "http://www.hochschule-bonn-rhein-sieg.de/",
+    "state": null,
+    "domain": "hochschule-bonn-rhein-sieg.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Bremen",
+    "website": "http://www.hs-bremen.de/",
+    "state": null,
+    "domain": "hs-bremen.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Bremerhaven",
+    "website": "http://www.hs-bremerhaven.de/",
+    "state": null,
+    "domain": "hs-bremerhaven.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Coburg",
+    "website": "http://www.hs-coburg.de/",
+    "state": null,
+    "domain": "hs-coburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Darmstadt",
+    "website": "https://www.h-da.de/",
+    "state": null,
+    "domain": "h-da.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Düsseldorf",
+    "website": "http://www.hs-duesseldorf.de/",
+    "state": null,
+    "domain": "hs-duesseldorf.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Esslingen",
+    "website": "http://www.hs-esslingen.de/",
+    "state": null,
+    "domain": "hs-esslingen.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Fulda",
+    "website": "http://www.hs-fulda.de/",
+    "state": null,
+    "domain": "hs-fulda.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Bankwirtschaft (HfB), Private Fachhochschule der Bankakademie",
+    "website": "http://www.hfb.de/",
+    "state": null,
+    "domain": "hfb.de",
+    "type": "private"
+  },
+  {
+    "name": "Hochschule für Fernsehen und Film München",
+    "website": "https://www.hff-muenchen.de/",
+    "state": null,
+    "domain": "hff-muenchen.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Internationales Management",
+    "website": "http://www.himh.de/",
+    "state": null,
+    "domain": "himh.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Jüdische Studien Heidelberg",
+    "website": "http://www.hjs.uni-heidelberg.de/",
+    "state": null,
+    "domain": "hjs.uni-heidelberg.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Künste Bremen",
+    "website": "https://www.hfk-bremen.de/",
+    "state": "Bremen",
+    "domain": "hfk-bremen.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Musik Carl Maria von Weber",
+    "website": "https://www.hfmdd.de/",
+    "state": "Saxony",
+    "domain": "hfmdd.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Musik Detmold",
+    "website": "https://www.hfm-detmold.de/",
+    "state": "Nordrhein-Westfalen",
+    "domain": "hfm-detmold.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Musik und Darstellende Kunst Stuttgart",
+    "website": "https://www.hmdk-stuttgart.de/",
+    "state": "Baden-Württemberg",
+    "domain": "hmdk-stuttgart.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Musik und Tanz Köln",
+    "website": "https://www.hfmt-koeln.de/",
+    "state": "North Rhine-Westphalia",
+    "domain": "hfmt-koeln.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Musik und Theater München",
+    "website": "https://website.musikhochschule-muenchen.de/",
+    "state": "Bavaria",
+    "domain": "musikhochschule-muenchen.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Musik und Theater „Felix Mendelssohn Bartholdy“ Leipzig",
+    "website": "https://www.hmt-leipzig.de/",
+    "state": "Saxony",
+    "domain": "hmt-leipzig.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Musik, Theater und Medien Hannover",
+    "website": "https://www.hmtm-hannover.de/",
+    "state": "Lower Saxony",
+    "domain": "hmtm-hannover.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Philosophie München",
+    "website": "http://www.hfph.mwn.de/",
+    "state": null,
+    "domain": "hfph.mwn.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Politik (HFP)",
+    "website": "http://www.hfp.mhn.de/",
+    "state": null,
+    "domain": "hfp.mhn.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Technik und Wirtschaft Berlin",
+    "website": "https://www.htw-berlin.de/",
+    "state": null,
+    "domain": "fhtw-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Technik und Wirtschaft des Saarlandes",
+    "website": "http://www.htw-saarland.de/",
+    "state": null,
+    "domain": "htw-saarland.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Technik und Wirtschaft Dresden (FH)",
+    "website": "http://www.htw-dresden.de/",
+    "state": null,
+    "domain": "htw-dresden.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Technik, Wirtschaft und Kultur Leipzig (FH)",
+    "website": "http://www.htwk-leipzig.de/",
+    "state": null,
+    "domain": "htwk-leipzig.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule für Wirtschaft und Gesellschaft Ludwigshafen",
+    "website": "https://www.hwg-lu.de/",
+    "state": null,
+    "domain": "hwg-lu.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Hannover",
+    "website": "https://www.hs-hannover.de/",
+    "state": "null",
+    "domain": "hs-hannover.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Harz, Hochschule für angewandte Wissenschaften (FH)",
+    "website": "http://www.hs-harz.de/",
+    "state": null,
+    "domain": "hs-harz.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Magdeburg-Stendal (FH)",
+    "website": "http://www.hs-magdeburg.de/",
+    "state": null,
+    "domain": "hs-magdeburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Mittweida, University of Applied Sciences",
+    "website": "http://www.htwm.de/",
+    "state": null,
+    "domain": "htwm.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule München",
+    "website": "http://www.hm.edu/",
+    "state": null,
+    "domain": "hm.edu",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Neu-Ulm, Hochschule Neu-Ulm University of applied sciences",
+    "website": "http://www.hs-neu-ulm.de/",
+    "state": null,
+    "domain": "hs-neu-ulm.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule RheinMain",
+    "website": "https://www.hs-rm.de/",
+    "state": null,
+    "domain": "hs-rm.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Ulm, Hochschule für Angewandte Wissenschaft",
+    "website": "http://www.hs-ulm.de/",
+    "state": null,
+    "domain": "hs-ulm.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Vechta",
+    "website": "http://www.uni-vechta.de/",
+    "state": null,
+    "domain": "uni-vechta.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Wismar, Fachhochschule für Technik, Wirtschaft und Gestaltung",
+    "website": "http://www.hs-wismar.de/",
+    "state": null,
+    "domain": "hs-wismar.de",
+    "type": "public"
+  },
+  {
+    "name": "Hochschule Zittau/Görlitz (FH)",
+    "website": "http://www.hs-zigr.de/",
+    "state": null,
+    "domain": "hs-zigr.de",
+    "type": "public"
+  },
+  {
+    "name": "Humboldt Universität Berlin",
+    "website": "http://www.hu-berlin.de/",
+    "state": null,
+    "domain": "hu-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "HWP - Hamburger Universität für Wirtschaft und Politik",
+    "website": "http://www.hwp-hamburg.de/",
+    "state": null,
+    "domain": "hwp-hamburg.de",
+    "type": "public"
+  },
+  {
+    "name": "International School of Management ISM Dortmund",
+    "website": "http://www.ism-dortmund.de/",
+    "state": null,
+    "domain": "ism-dortmund.de",
+    "type": "private"
+  },
+  {
+    "name": "International School of New Media, University of Lübeck",
+    "website": "http://www.isnm.de/",
+    "state": null,
+    "domain": "isnm.de",
+    "type": "private"
+  },
+  {
+    "name": "International University in Germany",
+    "website": "http://www.i-u.de/",
+    "state": null,
+    "domain": "i-u.de",
+    "type": "public"
+  },
+  {
+    "name": "Internationale Fachhochschule Aalen",
+    "website": "http://www.international.fh-aalen.de/",
+    "state": null,
+    "domain": "international.fh-aalen.de",
+    "type": "public"
+  },
+  {
+    "name": "Internationale Fachhochschule Bad Honnef",
+    "website": "http://www.fh-bad-honnef.de/",
+    "state": null,
+    "domain": "fh-bad-honnef.de",
+    "type": "public"
+  },
+  {
+    "name": "Internationales Hochschulinstitut Zittau",
+    "website": "http://www.ihi-zittau.de/",
+    "state": null,
+    "domain": "ihi-zittau.de",
+    "type": "public"
+  },
+  {
+    "name": "IST-Hochschule fur Management",
+    "website": "https://www.ist-hochschule.de/",
+    "state": null,
+    "domain": "ist-hochschule.de",
+    "type": "public"
+  },
+  {
+    "name": "IU Internationale Hochschule GmbH",
+    "website": "https://www.iu-fernstudium.de/",
+    "state": "Thuringia",
+    "domain": "iubh-fernstudium.de",
+    "type": "private"
+  },
+  {
+    "name": "Jacobs University Bremen",
+    "website": "http://www.jacobs-university.de/",
+    "state": null,
+    "domain": "jacobs-university.de",
+    "type": "private"
+  },
+  {
+    "name": "Johann Wolfgang Goethe Universität Frankfurt am Main",
+    "website": "http://www.uni-frankfurt.de/",
+    "state": null,
+    "domain": "uni-frankfurt.de",
+    "type": "public"
+  },
+  {
+    "name": "Johannes-Gutenberg Universität Mainz",
+    "website": "http://www.uni-mainz.de/",
+    "state": null,
+    "domain": "uni-mainz.de",
+    "type": "public"
+  },
+  {
+    "name": "Justus Liebig Universität Gießen",
+    "website": "http://www.uni-giessen.de/",
+    "state": null,
+    "domain": "uni-giessen.de",
+    "type": "public"
+  },
+  {
+    "name": "Karl-Schiller-Berufskolleg (KSBK)",
+    "website": "http://www.ksbk-do.de/",
+    "state": null,
+    "domain": "ksbk-do.de",
+    "type": "private"
+  },
+  {
+    "name": "Karlshochschule International University",
+    "website": "http://www.karlshochschule.de/",
+    "state": null,
+    "domain": "karlshochschule.de",
+    "type": "private"
+  },
+  {
+    "name": "Karlsruher Institut für Technologie",
+    "website": "http://www.kit.edu/",
+    "state": null,
+    "domain": "kit.edu",
+    "type": "public"
+  },
+  {
+    "name": "Katholische Fachhochschule Berlin (KFB)",
+    "website": "http://www.kfb-berlin.de/",
+    "state": null,
+    "domain": "kfb-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Katholische Fachhochschule Freiburg, Hochschule für Sozialwesen, Religionspädagogik und Pflege",
+    "website": "http://www.kfh-Freiburg.de/",
+    "state": null,
+    "domain": "kfh-freiburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Katholische Fachhochschule Mainz",
+    "website": "http://www.kfh-mainz.de/",
+    "state": null,
+    "domain": "kfh-mainz.de",
+    "type": "public"
+  },
+  {
+    "name": "Katholische Fachhochschule Norddeutschland",
+    "website": "http://www.kath-fh-nord.de/",
+    "state": null,
+    "domain": "kath-fh-nord.de",
+    "type": "public"
+  },
+  {
+    "name": "Katholische Fachhochschule Nordrhein-Westfalen",
+    "website": "http://www.kfhnw.de/",
+    "state": null,
+    "domain": "kfhnw.de",
+    "type": "public"
+  },
+  {
+    "name": "Katholische Hochschule für Soziale Arbeit Saarbrücken",
+    "website": "http://www.khsa.de/",
+    "state": null,
+    "domain": "khsa.de",
+    "type": "public"
+  },
+  {
+    "name": "Katholische Stiftungsfachhochschule München",
+    "website": "http://www.ksfh.de/",
+    "state": null,
+    "domain": "ksfh.de",
+    "type": "public"
+  },
+  {
+    "name": "Katholische Universität Eichstätt",
+    "website": "http://www.ku-eichstaett.de/",
+    "state": null,
+    "domain": "ku-eichstaett.de",
+    "type": "public"
+  },
+  {
+    "name": "Kirchliche Hochschule Bethel",
+    "website": "http://www.bethel.de/",
+    "state": null,
+    "domain": "bethel.de",
+    "type": "public"
+  },
+  {
+    "name": "Kunstakademie Düsseldorf.",
+    "website": "http://www.kunstakademie-duesseldorf.de/",
+    "state": null,
+    "domain": "kunstakademie-duesseldorf.de",
+    "type": "private"
+  },
+  {
+    "name": "Kunsthochschule Berlin-Weissensee, Hochschule für Gestaltung",
+    "website": "http://www.kh-berlin.de/",
+    "state": null,
+    "domain": "kh-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Leuphana Universität Lüneburg",
+    "website": "https://www.leuphana.de/",
+    "state": null,
+    "domain": "leuphana.de",
+    "type": "public"
+  },
+  {
+    "name": "Ludwig-Maximilians-Universität München",
+    "website": "http://www.lmu.de/",
+    "state": null,
+    "domain": "lmu.de",
+    "type": "public"
+  },
+  {
+    "name": "Lutherische Theologische Hochschule Oberursel",
+    "website": "http://www.selk.de/",
+    "state": null,
+    "domain": "selk.de",
+    "type": "public"
+  },
+  {
+    "name": "Martin-Luther Universität Halle-Wittenberg",
+    "website": "http://www.uni-halle.de/",
+    "state": null,
+    "domain": "uni-halle.de",
+    "type": "public"
+  },
+  {
+    "name": "Medizinische Hochschule Hannover",
+    "website": "http://www.mh-hannover.de/",
+    "state": null,
+    "domain": "mh-hannover.de",
+    "type": "public"
+  },
+  {
+    "name": "Medizinische Universität Lübeck",
+    "website": "http://www.mu-luebeck.de/",
+    "state": null,
+    "domain": "mu-luebeck.de",
+    "type": "public"
+  },
+  {
+    "name": "Merkur Internationale FH Karlsruhe",
+    "website": "http://www.merkur-fh.org/",
+    "state": null,
+    "domain": "merkur-fh.org",
+    "type": "public"
+  },
+  {
+    "name": "Merz Akademie, Hochschule für Gestaltung Stuttgart",
+    "website": "http://www.merz-akademie.de/",
+    "state": null,
+    "domain": "merz-akademie.de",
+    "type": "private"
+  },
+  {
+    "name": "Musikhochschule Lübeck",
+    "website": "https://www.mh-luebeck.de/",
+    "state": "Schleswig-Holstein",
+    "domain": "mh-luebeck.de",
+    "type": "public"
+  },
+  {
+    "name": "Muthesius-Hochschule, Fachhochschule für Kunst und Gestaltung",
+    "website": "http://www.muthesius.de/",
+    "state": null,
+    "domain": "muthesius.de",
+    "type": "public"
+  },
+  {
+    "name": "Märkische Fachhochschule Iserlohn",
+    "website": "http://www.mfh-iserlohn.de/",
+    "state": null,
+    "domain": "mfh-iserlohn.de",
+    "type": "public"
+  },
+  {
+    "name": "Nordakademie, Staatlich anerkannte private Fachhochschule mit dualen Studiengängen",
+    "website": "http://www.nordakademie.de/",
+    "state": null,
+    "domain": "nordakademie.de",
+    "type": "private"
+  },
+  {
+    "name": "Ostbayerische Technische Hochschule Amberg-Weiden",
+    "website": "https://www.oth-aw.de/",
+    "state": null,
+    "domain": "oth-aw.de",
+    "type": "public"
+  },
+  {
+    "name": "Ostfalia Hochschule für angewandte Wissenschaften",
+    "website": "https://www.ostfalia.de/",
+    "state": null,
+    "domain": "ostfalia.de",
+    "type": "public"
+  },
+  {
+    "name": "Otto-Friedrich Universität Bamberg",
+    "website": "http://www.uni-bamberg.de/",
+    "state": null,
+    "domain": "uni-bamberg.de",
+    "type": "public"
+  },
+  {
+    "name": "Otto-von-Guericke Universität Magdeburg",
+    "website": "http://www.uni-magdeburg.de/",
+    "state": null,
+    "domain": "uni-magdeburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Phillips-Universität Marburg",
+    "website": "http://www.uni-marburg.de/",
+    "state": null,
+    "domain": "uni-marburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Philosophisch-Theologische Hochschule der Salesianer Don Boscos",
+    "website": "http://www.pth-bb.de/",
+    "state": null,
+    "domain": "pth-bb.de",
+    "type": "public"
+  },
+  {
+    "name": "Philosophisch-Theologische Hochschule Münster",
+    "website": "http://www.pth-muenster.de/",
+    "state": null,
+    "domain": "pth-muenster.de",
+    "type": "public"
+  },
+  {
+    "name": "Philosophisch-Theologische Hochschule Sankt Georgen",
+    "website": "http://www.st-georgen.uni-frankfurt.de/",
+    "state": null,
+    "domain": "st-georgen.uni-frankfurt.de",
+    "type": "public"
+  },
+  {
+    "name": "Philosophisch-Theologische Hochschule SVD Sankt Augustin",
+    "website": "http://www.philtheol-augustin.de/",
+    "state": null,
+    "domain": "philtheol-augustin.de",
+    "type": "public"
+  },
+  {
+    "name": "Philosophisch-Theologische Hochschule Vallendar der Gesellschaft des Katholischen Apostolates (Pallottiner)",
+    "website": "http://www.pthv.de/",
+    "state": null,
+    "domain": "pthv.de",
+    "type": "public"
+  },
+  {
+    "name": "Popakademie Baden-Württemberg",
+    "website": "http://www.popakademie.de/",
+    "state": null,
+    "domain": "popakademie.de",
+    "type": "private"
+  },
+  {
+    "name": "Private Fachhochschule für Wirtschaft und Technik Vechta/Diepholz",
+    "website": "http://www.fhwt.de/",
+    "state": null,
+    "domain": "fhwt.de",
+    "type": "private"
+  },
+  {
+    "name": "Private Fachhochschule Göttingen",
+    "website": "http://www.pfh-goettingen.de/",
+    "state": null,
+    "domain": "pfh-goettingen.de",
+    "type": "private"
+  },
+  {
+    "name": "Private FernFachhochschule Darmstadt",
+    "website": "http://www.privatfh-da.de/",
+    "state": null,
+    "domain": "privatfh-da.de",
+    "type": "private"
+  },
+  {
+    "name": "Private Hanseuniversität",
+    "website": "http://www.hanseuni.de/",
+    "state": null,
+    "domain": "hanseuni.de",
+    "type": "private"
+  },
+  {
+    "name": "Private Universität Witten/Herdecke",
+    "website": "http://www.uni-wh.de/",
+    "state": null,
+    "domain": "uni-wh.de",
+    "type": "public"
+  },
+  {
+    "name": "Pädagogische Hochschule Erfurt/Mühlhausen",
+    "website": "http://www.ph-erfurt.de/",
+    "state": null,
+    "domain": "ph-erfurt.de",
+    "type": "public"
+  },
+  {
+    "name": "Pädagogische Hochschule Freiburg",
+    "website": "http://www.ph-freiburg.de/",
+    "state": null,
+    "domain": "ph-freiburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Pädagogische Hochschule Heidelberg",
+    "website": "http://www.ph-heidelberg.de/",
+    "state": null,
+    "domain": "ph-heidelberg.de",
+    "type": "public"
+  },
+  {
+    "name": "Pädagogische Hochschule Karlsruhe",
+    "website": "http://www.ph-karlsruhe.de/",
+    "state": null,
+    "domain": "ph-karlsruhe.de",
+    "type": "public"
+  },
+  {
+    "name": "Pädagogische Hochschule Ludwigsburg",
+    "website": "http://www.ph-ludwigsburg.de/",
+    "state": null,
+    "domain": "ph-ludwigsburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Pädagogische Hochschule Schwäbisch Gmünd",
+    "website": "http://www.ph-gmuend.de/",
+    "state": null,
+    "domain": "ph-gmuend.de",
+    "type": "public"
+  },
+  {
+    "name": "Pädagogische Hochschule Weingarten",
+    "website": "http://www.ph-weingarten.de/",
+    "state": null,
+    "domain": "ph-weingarten.de",
+    "type": "public"
+  },
+  {
+    "name": "Rheinisch Westfälische Technische Hochschule Aachen",
+    "website": "http://www.rwth-aachen.de/",
+    "state": null,
+    "domain": "rwth-aachen.de",
+    "type": "public"
+  },
+  {
+    "name": "Rheinische Fachhochschule Köln",
+    "website": "http://www.rfh-koeln.de/",
+    "state": null,
+    "domain": "rfh-koeln.de",
+    "type": "public"
+  },
+  {
+    "name": "Rheinische Friedrich-Wilhelms Universität Bonn",
+    "website": "http://www.uni-bonn.de/",
+    "state": null,
+    "domain": "uni-bonn.de",
+    "type": "public"
+  },
+  {
+    "name": "Rosenheim University of Applied Sciences",
+    "website": "https://th-rosenheim.de/",
+    "state": "Bavaria",
+    "domain": "th-rosenheim.de",
+    "type": "public"
+  },
+  {
+    "name": "Ruhr-Universität Bochum",
+    "website": "http://www.ruhr-uni-bochum.de/",
+    "state": null,
+    "domain": "ruhr-uni-bochum.de",
+    "type": "public"
+  },
+  {
+    "name": "Ruprecht-Karls-Universität Heidelberg",
+    "website": "http://www.uni-heidelberg.de/",
+    "state": null,
+    "domain": "uni-heidelberg.de",
+    "type": "public"
+  },
+  {
+    "name": "Schiller International University, Heidelberg",
+    "website": "http://www.siu-heidelberg.de/",
+    "state": null,
+    "domain": "siu-heidelberg.de",
+    "type": "private"
+  },
+  {
+    "name": "SRH University of Applied Sciences",
+    "website": "http://www.srh-berlin.de/",
+    "state": null,
+    "domain": "srh-berlin.de",
+    "type": "private"
+  },
+  {
+    "name": "Staatlich anerkannte Fachhochschule für Kunsttherapie",
+    "website": "http://www.fhkt.de/",
+    "state": null,
+    "domain": "fhkt.de",
+    "type": "public"
+  },
+  {
+    "name": "Staatliche Hochschule für Musik",
+    "website": "http://www.mh-trossingen.de/",
+    "state": null,
+    "domain": "mh-trossingen.de",
+    "type": "public"
+  },
+  {
+    "name": "Staatliche Studienakademie Bautzen",
+    "website": "https://www.ba-bautzen.de/",
+    "state": "null",
+    "domain": "ba-bautzen.de",
+    "type": "public"
+  },
+  {
+    "name": "Steinbeis-Hochschule-Berlin",
+    "website": "http://www.stw.de/",
+    "state": null,
+    "domain": "stw.de",
+    "type": "private"
+  },
+  {
+    "name": "Technical University of Applied Sciences Augsburg",
+    "website": "https://www.tha.de/",
+    "state": null,
+    "domain": "fh-augsburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Fachhochschule Berlin",
+    "website": "http://www.tfh-berlin.de/",
+    "state": null,
+    "domain": "tfh-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Fachhochschule Georg Agricola für Rohstoff, Energie und, Umwelt zu Bochum",
+    "website": "http://www.tfh-bochum.de/",
+    "state": null,
+    "domain": "tfh-bochum.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Fachhochschule Wildau",
+    "website": "http://www.tfh-wildau.de/",
+    "state": null,
+    "domain": "tfh-wildau.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Hochschule Brandenburg",
+    "website": "http://www.th-brandenburg.de/",
+    "state": null,
+    "domain": "th-brandenburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Hochschule Deggendorf",
+    "website": "http://www.th-deg.de/",
+    "state": null,
+    "domain": "th-deg.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Hochschule Ingolstadt",
+    "website": "https://www.thi.de/",
+    "state": null,
+    "domain": "thi.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Hochschule Köln",
+    "website": "https://www.th-koeln.de/",
+    "state": null,
+    "domain": "th-koeln.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Hochschule Mittelhessen",
+    "website": "https://www.thm.de/",
+    "state": null,
+    "domain": "thm.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Hochschule Ulm",
+    "website": "https://www.thu.de/",
+    "state": "Baden-Württemberg",
+    "domain": "thu.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität Bergakademie Freiberg",
+    "website": "http://www.tu-freiberg.de/",
+    "state": null,
+    "domain": "tu-freiberg.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität Berlin",
+    "website": "http://www.tu-berlin.de/",
+    "state": null,
+    "domain": "tu-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität Carolo-Wilhelmina zu Braunschweig",
+    "website": "https://www.tu-braunschweig.de/",
+    "state": null,
+    "domain": "tu-braunschweig.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität Chemnitz",
+    "website": "http://www.tu-chemnitz.de/",
+    "state": null,
+    "domain": "tu-chemnitz.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität Clausthal",
+    "website": "http://www.tu-clausthal.de/",
+    "state": null,
+    "domain": "tu-clausthal.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität Darmstadt",
+    "website": "https://www.tu-darmstadt.de/",
+    "state": null,
+    "domain": "tu-darmstadt.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität Dortmund",
+    "website": "http://www.tu-dortmund.de/",
+    "state": null,
+    "domain": "tu-dortmund.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität Dresden",
+    "website": "http://www.tu-dresden.de/",
+    "state": null,
+    "domain": "tu-dresden.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität Hamburg",
+    "website": "http://www.tuhh.de/",
+    "state": null,
+    "domain": "tuhh.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität Ilmenau",
+    "website": "http://www.tu-ilmenau.de/",
+    "state": null,
+    "domain": "tu-ilmenau.de",
+    "type": "public"
+  },
+  {
+    "name": "Technische Universität München",
+    "website": "http://www.tum.de/",
+    "state": null,
+    "domain": "tum.de",
+    "type": "public"
+  },
+  {
+    "name": "Theologische Fakultät Paderborn",
+    "website": "http://www.paderborn.de/",
+    "state": null,
+    "domain": "paderborn.de",
+    "type": "public"
+  },
+  {
+    "name": "Theologische Hochschule Friedensau",
+    "website": "http://www.thh-friedensau.de/",
+    "state": null,
+    "domain": "thh-friedensau.de",
+    "type": "public"
+  },
+  {
+    "name": "Tierärztliche Hochschule Hannover",
+    "website": "http://www.tiho-hannover.de/",
+    "state": null,
+    "domain": "tiho-hannover.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Augsburg",
+    "website": "http://www.uni-augsburg.de/",
+    "state": null,
+    "domain": "uni-augsburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Bayreuth",
+    "website": "http://www.uni-bayreuth.de/",
+    "state": null,
+    "domain": "uni-bayreuth.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Bielefeld",
+    "website": "http://www.uni-bielefeld.de/",
+    "state": null,
+    "domain": "uni-bielefeld.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Bremen",
+    "website": "http://www.uni-bremen.de/",
+    "state": null,
+    "domain": "uni-bremen.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität der Bundeswehr Hamburg",
+    "website": "http://www.unibw-hamburg.de/",
+    "state": null,
+    "domain": "unibw-hamburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität der Bundeswehr München",
+    "website": "http://www.unibw-muenchen.de/",
+    "state": null,
+    "domain": "unibw-muenchen.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität der Künste Berlin",
+    "website": "https://www.udk-berlin.de/",
+    "state": "Berlin",
+    "domain": "udk-berlin.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität des Saarlandes",
+    "website": "http://www.uni-saarland.de/",
+    "state": null,
+    "domain": "uni-saarland.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Duisburg-Essen",
+    "website": "http://www.uni-duisburg-essen.de/",
+    "state": null,
+    "domain": "uni-duisburg-essen.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Erfurt",
+    "website": "http://www.uni-erfurt.de/",
+    "state": null,
+    "domain": "uni-erfurt.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Flensburg",
+    "website": "http://www.uni-flensburg.de/",
+    "state": null,
+    "domain": "uni-flensburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Hamburg",
+    "website": "http://www.uni-hamburg.de/",
+    "state": null,
+    "domain": "uni-hamburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Hannover",
+    "website": "http://www.uni-hannover.de/",
+    "state": null,
+    "domain": "uni-hannover.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Hildesheim",
+    "website": "http://www.uni-hildesheim.de/",
+    "state": null,
+    "domain": "uni-hildesheim.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Hohenheim",
+    "website": "http://www.uni-hohenheim.de/",
+    "state": null,
+    "domain": "uni-hohenheim.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Kaiserslautern",
+    "website": "http://www.uni-kl.de/",
+    "state": null,
+    "domain": "uni-kl.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Kassel",
+    "website": "http://www.uni-kassel.de/",
+    "state": null,
+    "domain": "uni-kassel.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Koblenz-Landau",
+    "website": "http://www.uni-koblenz-landau.de/",
+    "state": null,
+    "domain": "uni-koblenz-landau.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Konstanz",
+    "website": "http://www.uni-konstanz.de/",
+    "state": null,
+    "domain": "uni-konstanz.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Köln",
+    "website": "http://www.uni-koeln.de/",
+    "state": null,
+    "domain": "uni-koeln.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Leipzig",
+    "website": "http://www.uni-leipzig.de/",
+    "state": null,
+    "domain": "uni-leipzig.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Lüneburg",
+    "website": "http://www.uni-lueneburg.de/",
+    "state": null,
+    "domain": "uni-lueneburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Mannheim",
+    "website": "http://www.uni-mannheim.de/",
+    "state": null,
+    "domain": "uni-mannheim.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Osnabrück",
+    "website": "http://www.uni-osnabrueck.de/",
+    "state": null,
+    "domain": "uni-osnabrueck.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Paderborn",
+    "website": "http://www.uni-paderborn.de/",
+    "state": null,
+    "domain": "uni-paderborn.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Passau",
+    "website": "http://www.uni-passau.de/",
+    "state": null,
+    "domain": "uni-passau.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Potsdam",
+    "website": "http://www.uni-potsdam.de/",
+    "state": null,
+    "domain": "uni-potsdam.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Regensburg",
+    "website": "http://www.uni-regensburg.de/",
+    "state": null,
+    "domain": "uni-regensburg.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Rostock",
+    "website": "http://www.uni-rostock.de/",
+    "state": null,
+    "domain": "uni-rostock.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Siegen",
+    "website": "http://www.uni-siegen.de/",
+    "state": null,
+    "domain": "uni-siegen.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Stuttgart",
+    "website": "http://www.uni-stuttgart.de/",
+    "state": null,
+    "domain": "uni-stuttgart.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Trier",
+    "website": "http://www.uni-trier.de/",
+    "state": null,
+    "domain": "uni-trier.de",
+    "type": "public"
+  },
+  {
+    "name": "Universität Ulm",
+    "website": "http://www.uni-ulm.de/",
+    "state": null,
+    "domain": "uni-ulm.de",
+    "type": "public"
+  },
+  {
+    "name": "Westfälische Wilhelms-Universität Münster",
+    "website": "http://www.uni-muenster.de/",
+    "state": null,
+    "domain": "uni-muenster.de",
+    "type": "public"
+  },
+  {
+    "name": "Westphalian University of Applied Sciences",
+    "website": "https://www.w-hs.de/",
+    "state": "Nordrhein-Westfalen",
+    "domain": "w-hs.de",
+    "type": "public"
+  },
+  {
+    "name": "Westsächsische Hochschule Zwickau (FH)",
+    "website": "http://www.fh-zwickau.de/",
+    "state": null,
+    "domain": "fh-zwickau.de",
+    "type": "public"
+  },
+  {
+    "name": "WHU – Otto Beisheim School of Management",
+    "website": "https://www.whu.edu/",
+    "state": null,
+    "domain": "whu-koblenz.de",
+    "type": "private"
+  }
+]

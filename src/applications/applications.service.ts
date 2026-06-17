@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as crypto from 'crypto';
 import { Application, ApplicationStatus } from './entities/applications.entity';
 import { UserApplication, UserApplicationRole } from './entities/user-application.entity';
 import { CreateApplicationDto } from './dto/create-application.dto';
@@ -14,6 +15,10 @@ import { UpdateApplicationDto } from './dto/update-application.dto';
 import { UpdateApplicationStatusDto } from './dto/update-status.dto';
 import { QueryApplicationDto } from './dto/query-application.dto';
 import { SubmitApplicationDto } from './dto/submit-application.dto';
+import { CreateApplicationForUserDto } from './dto/create-application-for-user.dto';
+import { User } from '../user/entities/user.entity';
+import { Role } from '../user/entities/role.entity';
+import { EmailService } from '../email/email.service';
 
 @Injectable()
 export class ApplicationsService {
@@ -23,7 +28,114 @@ export class ApplicationsService {
 
     @InjectRepository(UserApplication)
     private readonly userApplicationRepo: Repository<UserApplication>,
+
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>,
+
+    @InjectRepository(Role)
+    private readonly roleRepo: Repository<Role>,
+
+    private readonly emailService: EmailService,
   ) {}
+
+  /** Generates a readable temporary password that satisfies the password policy. */
+  private generatePassword(): string {
+    const upper = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+    const lower = 'abcdefghijkmnpqrstuvwxyz';
+    const digits = '23456789';
+    const all = upper + lower + digits;
+    const pick = (set: string) => set[crypto.randomInt(set.length)];
+    let pwd = pick(upper) + pick(lower) + pick(digits);
+    for (let i = 0; i < 7; i++) pwd += pick(all);
+    return pwd;
+  }
+
+  /**
+   * Admin creates an application on behalf of a prospective student. If the
+   * user doesn't exist, a STUDENT account is created with a generated password
+   * and the credentials are emailed to them. The generated password is also
+   * returned so the admin can share it directly.
+   */
+  async adminCreateForUser(dto: CreateApplicationForUserDto): Promise<{
+    application: Application;
+    user: { id: number; email: string; firstName: string; lastName: string };
+    accountCreated: boolean;
+    generatedPassword?: string;
+  }> {
+    let user = await this.userRepo.findOne({ where: { email: dto.email } });
+    let generatedPassword: string | undefined;
+    let accountCreated = false;
+
+    if (!user) {
+      const studentRole = await this.roleRepo.findOne({
+        where: { name: 'STUDENT' },
+      });
+      if (!studentRole) {
+        throw new BadRequestException('STUDENT role is not configured.');
+      }
+      generatedPassword = this.generatePassword();
+      user = this.userRepo.create({
+        email: dto.email,
+        password: generatedPassword,
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+        phoneNumber: dto.phoneNumber ?? null,
+        country: dto.country ?? null,
+        role: studentRole,
+      });
+      user = await this.userRepo.save(user);
+      accountCreated = true;
+      await this.emailService.sendAccountCredentialsEmail(
+        user.email,
+        user.firstName,
+        generatedPassword,
+      );
+    }
+
+    const duplicate = await this.applicationRepo.findOne({
+      where: {
+        userId: user.id,
+        programId: dto.programId,
+        ...(dto.scholarshipId ? { scholarshipId: dto.scholarshipId } : {}),
+      },
+    });
+    if (duplicate) {
+      throw new ConflictException(
+        'This user already has an application for that program.',
+      );
+    }
+
+    const application = this.applicationRepo.create({
+      userId: user.id,
+      programId: dto.programId,
+      scholarshipId: dto.scholarshipId ?? null,
+      intendedMajor: dto.intendedMajor ?? null,
+      reviewerNotes: dto.reviewerNotes ?? null,
+      status: ApplicationStatus.DRAFT,
+    });
+    const saved = await this.applicationRepo.save(application);
+
+    await this.userApplicationRepo.save(
+      this.userApplicationRepo.create({
+        userId: user.id,
+        applicationId: saved.id,
+        role: UserApplicationRole.STUDENT,
+      }),
+    );
+    await this.recalculateCompletion(saved.id);
+
+    return {
+      application: await this.findOneOrFail(saved.id, true),
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+      accountCreated,
+      generatedPassword,
+    };
+  }
 
   async create(userId: number, dto: CreateApplicationDto): Promise<Application> {
     const existing = await this.applicationRepo.findOne({
@@ -42,7 +154,7 @@ export class ApplicationsService {
 
     const application = this.applicationRepo.create({
       userId,
-      scholarshipId: dto.scholarshipId,
+      scholarshipId: dto.scholarshipId ?? null,
       programId: dto.programId,
       personalStatement: dto.personalStatement ?? null,
       currentGpa: dto.currentGpa ?? null,

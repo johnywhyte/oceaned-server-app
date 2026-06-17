@@ -26,6 +26,7 @@ import { UpdateApplicationDto } from './dto/update-application.dto';
 import { UpdateApplicationStatusDto } from './dto/update-status.dto';
 import { QueryApplicationDto } from './dto/query-application.dto';
 import { SubmitApplicationDto } from './dto/submit-application.dto';
+import { CreateApplicationForUserDto } from './dto/create-application-for-user.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
@@ -133,6 +134,20 @@ export class ApplicationController {
     return this.applicationService.withdraw(id, req.user.id);
   }
 
+
+  @Post('admin/create-for-user')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.APPLICATION_MANAGER)
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({
+    summary: '[Admin] Create an application on behalf of a student',
+    description:
+      'Creates the application and, if the email is new, a STUDENT account with a generated password. Login credentials are emailed to the student and the generated password is returned so the admin can share it directly.',
+  })
+  @ApiResponse({ status: 201, description: 'Application (and account) created.' })
+  @ApiResponse({ status: 409, description: 'User already has an application for that program.' })
+  createForUser(@Body() dto: CreateApplicationForUserDto) {
+    return this.applicationService.adminCreateForUser(dto);
+  }
 
   @Get('admin')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.APPLICATION_MANAGER)

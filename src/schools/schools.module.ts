@@ -8,6 +8,8 @@ import { School } from './entities/school.entity';
 import { Country } from '../scholarship/entities/country.entity';
 import { Program } from '../programs/entities/program.entity';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
+import { AcademicCalendarService } from './academic-calendar.service';
+import { UniversitiesApiService } from './universities-api.service';
 
 @Module({
   imports: [
@@ -18,7 +20,7 @@ import { CloudinaryModule } from '../cloudinary/cloudinary.module';
     CloudinaryModule,
   ],
   controllers: [SchoolsController],
-  providers: [SchoolsService],
-  exports: [SchoolsService],
+  providers: [SchoolsService, AcademicCalendarService, UniversitiesApiService],
+  exports: [SchoolsService, AcademicCalendarService],
 })
 export class SchoolsModule {}

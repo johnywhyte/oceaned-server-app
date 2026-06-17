@@ -31,6 +31,34 @@ export class EmailService {
     }
   }
 
+  async sendAccountCredentialsEmail(
+    email: string,
+    firstName: string,
+    password: string,
+  ): Promise<void> {
+    try {
+      await this.mailerService.sendMail({
+        to: email,
+        subject: 'Your OCEANED Account Credentials',
+        template: 'account-credentials',
+        context: {
+          firstName,
+          email,
+          password,
+          loginUrl: `${this.configService.get('FRONTEND_URL')}/account/login`,
+          oceaned: this.configService.get('APP_NAME', 'OCEANED'),
+          supportEmail: this.configService.get('EMAIL_FROM', 'support@oceaned.com'),
+        },
+      });
+      this.logger.log(`Account credentials email sent to ${email}`);
+    } catch (error) {
+      this.logger.error(
+        `Failed to send credentials email to ${email}`,
+        error.stack,
+      );
+    }
+  }
+
   async sendPasswordResetEmail(email: string, firstName: string, resetToken: string): Promise<void> {
     try {
       await this.mailerService.sendMail({

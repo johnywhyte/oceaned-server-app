@@ -19,7 +19,8 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { RegisterUserDto} from './dto/register-user.dto';
-import {LoginDto} from './dto/login.dto'; 
+import { SignupDto } from './dto/signup.dto';
+import {LoginDto} from './dto/login.dto';
 import {RefreshTokenDto} from './dto/refresh-token.dto';
 import{ForgotPasswordDto} from './dto/forgot-password.dto'; 
 import { ResetPasswordDto} from './dto/reset-password.dto'; 
@@ -57,6 +58,25 @@ export class AuthController {
       success: true,
       message: 'User created successfully',
       data: user,
+    };
+  }
+
+  @Public()
+  @Post('signup')
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({
+    summary: 'Student self-registration',
+    description:
+      'Public sign-up. Always creates a STUDENT account and returns auth tokens.',
+  })
+  @ApiResponse({ status: 201, description: 'Account created and logged in.' })
+  async signup(@Body() signupDto: SignupDto) {
+    const result = await this.authService.signup(signupDto);
+    return {
+      success: true,
+      message: 'Account created successfully',
+      data: result,
     };
   }
 

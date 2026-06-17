@@ -38,9 +38,9 @@ export class Application {
   @Column({ name: 'user_id', type: 'bigint' })
   userId: number;
  
-  @Column({ name: 'scholarship_id', type: 'bigint' })
-  scholarshipId: number;
- 
+  @Column({ name: 'scholarship_id', type: 'bigint', nullable: true })
+  scholarshipId: number | null;
+
   @Column({ name: 'program_id', type: 'bigint' })
   programId: number;
  
@@ -113,9 +113,11 @@ export class Application {
   @JoinColumn({ name: 'user_id' })
   user: User;
  
-  @ManyToOne(() => Scholarship, (scholarship) => scholarship.applications)
+  @ManyToOne(() => Scholarship, (scholarship) => scholarship.applications, {
+    nullable: true,
+  })
   @JoinColumn({ name: 'scholarship_id' })
-  scholarship: Scholarship;
+  scholarship: Scholarship | null;
  
   @ManyToOne(() => Program, (program) => program.applications)
   @JoinColumn({ name: 'program_id' })

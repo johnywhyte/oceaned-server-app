@@ -47,10 +47,24 @@ export class SchoolsController {
     return this.schoolsService.findAll(query);
   }
 
+  @Get('meta/states')
+  @ApiOperation({ summary: 'Distinct list of school states/regions (public)' })
+  getStates(@Query('countryId') countryId?: number) {
+    return this.schoolsService.getStates(countryId ? Number(countryId) : undefined);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get a school by ID (public)' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.schoolsService.findOne(id);
+  }
+
+  @Get(':id/session')
+  @ApiOperation({
+    summary: 'Get the academic-session status of a school (public)',
+  })
+  getSession(@Param('id', ParseIntPipe) id: number) {
+    return this.schoolsService.getSession(id);
   }
 
   @Get(':id/programs')
@@ -62,6 +76,17 @@ export class SchoolsController {
   }
 
   // Admin Endpoints
+
+  @Post('admin/import')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(...ADMIN_ROLES)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Bulk-import universities for a country from the Universities API (admin)',
+  })
+  importFromApi(@Query('country') country = 'Germany') {
+    return this.schoolsService.importFromApi(country);
+  }
 
   @Post('admin')
   @UseGuards(JwtAuthGuard, RolesGuard)

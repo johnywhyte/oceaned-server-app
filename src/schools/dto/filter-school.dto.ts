@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { PartnerStatus } from '../entities/school.entity';
+import { PartnerStatus, SchoolType } from '../entities/school.entity';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 
 export class FilterSchoolDto extends PaginationQueryDto {
@@ -31,6 +31,19 @@ export class FilterSchoolDto extends PaginationQueryDto {
   @IsOptional()
   @IsString()
   city?: string;
+
+  @ApiPropertyOptional({ description: 'State / region', example: 'Bavaria' })
+  @IsOptional()
+  @IsString()
+  state?: string;
+
+  @ApiPropertyOptional({
+    description: 'Filter by school type',
+    enum: SchoolType,
+  })
+  @IsOptional()
+  @IsEnum(SchoolType)
+  schoolType?: SchoolType;
 
   @ApiPropertyOptional({
     description: 'Filter by partner status',

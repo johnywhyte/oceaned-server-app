@@ -14,6 +14,7 @@ import { User } from 'src/user/entities/user.entity';
 import { Role } from 'src/user/entities/role.entity';
 import { EmailService } from '../email/email.service';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { SignupDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
@@ -87,6 +88,46 @@ export class AuthService {
     );
 
     return savedUser;
+  }
+
+  /**
+   * Public self-service registration. Always creates a STUDENT account and
+   * returns auth tokens so the user is logged in immediately.
+   */
+  async signup(dto: SignupDto): Promise<AuthResponse> {
+    const existingUser = await this.userRepository.findOne({
+      where: { email: dto.email },
+    });
+    if (existingUser) {
+      throw new ConflictException('Email already exists');
+    }
+
+    const studentRole = await this.roleRepository.findOne({
+      where: { name: 'STUDENT' },
+    });
+    if (!studentRole) {
+      throw new NotFoundException('STUDENT role is not configured.');
+    }
+
+    const user = this.userRepository.create({
+      email: dto.email,
+      password: dto.password,
+      firstName: dto.firstName,
+      lastName: dto.lastName,
+      phoneNumber: dto.phoneNumber ?? null,
+      country: dto.country ?? null,
+      role: studentRole,
+    });
+
+    const savedUser = await this.userRepository.save(user);
+    await this.emailService.sendWelcomeEmail(savedUser.email, savedUser.firstName);
+
+    const userWithRole = await this.userRepository.findOne({
+      where: { id: savedUser.id },
+      relations: ['role'],
+    });
+    const tokens = await this.generateTokens(userWithRole!);
+    return { user: userWithRole!, ...tokens };
   }
 
   async validateUser(email: string, pass: string): Promise<any> {
