@@ -13,17 +13,38 @@ import {
 import { User } from '../../user/entities/user.entity';
 import { Scholarship } from '../../scholarship/entities/scholarship.entity';
 import { Program } from '../../programs/entities/program.entity';
+import { School } from '../../schools/entities/school.entity';
 import { UserApplication } from './user-application.entity';
+import { Invoice } from './invoice.entity';
  
 export enum ApplicationStatus {
+  // In-progress before submission.
   DRAFT = 'draft',
+  // OCEANED study-abroad application lifecycle.
+  PENDING_PAYMENT = 'pending_payment',
+  AWAITING_CONFIRMATION = 'awaiting_confirmation',
+  PROCESSING = 'processing',
+  AWAITING_ADMISSION = 'awaiting_admission',
+  ADMISSION_GRANTED = 'admission_granted',
+  ADMISSION_REJECTED = 'admission_rejected',
+  WITHDRAWN = 'withdrawn',
+  // Legacy scholarship-flow statuses (kept for backward compatibility).
   SUBMITTED = 'submitted',
   UNDER_REVIEW = 'under_review',
   SHORTLISTED = 'shortlisted',
   INTERVIEW_SCHEDULED = 'interview_scheduled',
   ACCEPTED = 'accepted',
   REJECTED = 'rejected',
-  WITHDRAWN = 'withdrawn',
+}
+
+export enum ProofOfFundsOption {
+  BLOCKED_ACCOUNT = 'blocked_account',
+  SPONSORSHIP = 'sponsorship',
+}
+
+export enum UniversityType {
+  PUBLIC = 'public',
+  PRIVATE = 'private',
 }
  
 @Entity('applications')
@@ -41,9 +62,40 @@ export class Application {
   @Column({ name: 'scholarship_id', type: 'bigint', nullable: true })
   scholarshipId: number | null;
 
-  @Column({ name: 'program_id', type: 'bigint' })
-  programId: number;
- 
+  @Column({ name: 'program_id', type: 'bigint', nullable: true })
+  programId: number | null;
+
+  @Column({ name: 'school_id', type: 'bigint', nullable: true })
+  schoolId: number | null;
+
+  @Column({ name: 'intended_course', type: 'varchar', length: 200, nullable: true })
+  intendedCourse: string | null;
+
+  @Column({ name: 'intake', type: 'varchar', length: 100, nullable: true })
+  intake: string | null;
+
+  @Column({ name: 'degree_type', type: 'varchar', length: 100, nullable: true })
+  degreeType: string | null;
+
+  @Column({
+    name: 'university_type',
+    type: 'enum',
+    enum: UniversityType,
+    nullable: true,
+  })
+  universityType: UniversityType | null;
+
+  @Column({
+    name: 'proof_of_funds_option',
+    type: 'enum',
+    enum: ProofOfFundsOption,
+    nullable: true,
+  })
+  proofOfFundsOption: ProofOfFundsOption | null;
+
+  @Column({ name: 'payment_proof_url', type: 'varchar', length: 500, nullable: true })
+  paymentProofUrl: string | null;
+
   @Column({
     type: 'enum',
     enum: ApplicationStatus,
@@ -119,11 +171,18 @@ export class Application {
   @JoinColumn({ name: 'scholarship_id' })
   scholarship: Scholarship | null;
  
-  @ManyToOne(() => Program, (program) => program.applications)
+  @ManyToOne(() => Program, (program) => program.applications, { nullable: true })
   @JoinColumn({ name: 'program_id' })
-  program: Program;
+  program: Program | null;
+
+  @ManyToOne(() => School, { nullable: true, eager: true })
+  @JoinColumn({ name: 'school_id' })
+  school: School | null;
+
+  @OneToMany(() => Invoice, (invoice) => invoice.application)
+  invoices: Invoice[];
 
   @OneToMany(() => UserApplication, (ua) => ua.user)
-userApplications: UserApplication[];
+  userApplications: UserApplication[];
 }
  

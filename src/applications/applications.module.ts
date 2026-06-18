@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApplicationController } from './applications.controller';
 import { ApplicationsService } from './applications.service';
 import { Application } from './entities/applications.entity';
+import { Invoice } from './entities/invoice.entity';
 import { UserApplication } from './entities/user-application.entity';
 import { User } from '../user/entities/user.entity';
 import { Role } from '../user/entities/role.entity';
@@ -10,7 +11,7 @@ import { EmailModule } from '../email/email.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Application, UserApplication, User, Role]),
+    TypeOrmModule.forFeature([Application, Invoice, UserApplication, User, Role]),
     EmailModule,
   ],
   controllers: [ApplicationController],

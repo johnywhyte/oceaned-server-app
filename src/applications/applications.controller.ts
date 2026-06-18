@@ -135,6 +135,110 @@ export class ApplicationController {
   }
 
 
+  /* ---- Study-abroad application flow (student) ---- */
+
+  @Post('study')
+  @Roles(UserRole.STUDENT)
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: 'Create a study-abroad application (school + course + intake)' })
+  createStudy(
+    @Request() req,
+    @Body()
+    dto: {
+      schoolId: number;
+      intendedCourse: string;
+      intake: string;
+      degreeType?: string;
+      universityType?: any;
+      proofOfFundsOption?: any;
+      personalStatement?: string;
+      documents?: { name: string; type: string; url: string }[];
+    },
+  ) {
+    return this.applicationService.createStudyApplication(req.user.id, dto);
+  }
+
+  @Post('my/:id/documents')
+  @Roles(UserRole.STUDENT)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Attach uploaded documents to an application' })
+  addDocuments(
+    @Param('id', ParseIntPipe) id: number,
+    @Request() req,
+    @Body() body: { documents: { name: string; type: string; url: string }[] },
+  ) {
+    return this.applicationService.addDocuments(id, req.user.id, body.documents);
+  }
+
+  @Delete('my/:id/documents')
+  @Roles(UserRole.STUDENT)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Remove a document from an application by URL' })
+  removeDocument(
+    @Param('id', ParseIntPipe) id: number,
+    @Request() req,
+    @Body() body: { url: string },
+  ) {
+    return this.applicationService.removeDocument(id, req.user.id, body.url);
+  }
+
+  @Post('my/:id/submit-study')
+  @Roles(UserRole.STUDENT)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Submit a study application (raises invoice, pending payment)' })
+  submitStudy(
+    @Param('id', ParseIntPipe) id: number,
+    @Request() req,
+    @Body() body: { proofOfFundsOption?: any; personalStatement?: string },
+  ) {
+    return this.applicationService.submitStudyApplication(id, req.user.id, body);
+  }
+
+  @Post('my/:id/payment-proof')
+  @Roles(UserRole.STUDENT)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Upload proof of payment for the application invoice' })
+  uploadPaymentProof(
+    @Param('id', ParseIntPipe) id: number,
+    @Request() req,
+    @Body() body: { url: string },
+  ) {
+    return this.applicationService.uploadPaymentProof(id, req.user.id, body.url);
+  }
+
+  @Get('my/:id/invoice')
+  @Roles(UserRole.STUDENT)
+  @ApiOperation({ summary: 'Get the invoice for an application' })
+  getInvoice(@Param('id', ParseIntPipe) id: number, @Request() req) {
+    return this.applicationService.getInvoice(id);
+  }
+
+  /* ---- Study-abroad application flow (admin) ---- */
+
+  @Post('admin/:id/confirm-payment')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.APPLICATION_MANAGER)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: '[Admin] Confirm payment → move to processing' })
+  confirmPayment(@Param('id', ParseIntPipe) id: number) {
+    return this.applicationService.confirmPayment(id);
+  }
+
+  @Patch('admin/:id/study-status')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.APPLICATION_MANAGER)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: '[Admin] Advance study-application status' })
+  setStudyStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: { status: any; notes?: string; rejectionReason?: string },
+  ) {
+    return this.applicationService.setStudyStatus(
+      id,
+      body.status,
+      body.notes,
+      body.rejectionReason,
+    );
+  }
+
   @Post('admin/create-for-user')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.APPLICATION_MANAGER)
   @HttpCode(HttpStatus.CREATED)
