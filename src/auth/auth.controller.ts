@@ -165,7 +165,13 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
     const result = await this.authService.forgotPassword(forgotPasswordDto);
-    return { success: true, message: result.message };
+    return {
+      success: true,
+      message: result.message,
+      ...(('devToken' in result && result.devToken)
+        ? { devToken: result.devToken }
+        : {}),
+    };
   }
 
   @Public()

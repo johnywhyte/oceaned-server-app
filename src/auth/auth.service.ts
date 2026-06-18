@@ -339,9 +339,20 @@ export class AuthService {
 
     await this.userRepository.save(user);
 
-    await this.emailService.sendPasswordResetEmail(user.email, user.firstName, resetToken);
+    // Fire-and-forget so an unconfigured/slow SMTP never blocks the request.
+    this.emailService
+      .sendPasswordResetEmail(user.email, user.firstName, resetToken)
+      .catch((err) =>
+        this.logger.warn(`Reset email failed: ${(err as Error).message}`),
+      );
 
-    return { message: 'If email exists, a 6-digit reset token has been sent' };
+    // When email isn't configured (local/dev), surface the token so the reset
+    // flow is still usable. Never exposed once SMTP is set (e.g. production).
+    const emailConfigured = !!process.env.SMTP_HOST;
+    return {
+      message: 'If email exists, a 6-digit reset token has been sent',
+      ...(emailConfigured ? {} : { devToken: resetToken }),
+    };
   }
 
   async resetPassword(resetPasswordDto: ResetPasswordDto) {
