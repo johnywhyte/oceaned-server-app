@@ -132,6 +132,7 @@ export class SchoolsService {
           name: uni.name,
           slug: generateUniqueSlug(uni.name, String(Date.now() + imported)),
           websiteUrl: uni.website ?? null,
+          domain: uni.domain ?? null,
           state: uni.state ?? null,
           schoolType: uni.type ?? SchoolType.UNKNOWN,
           country,

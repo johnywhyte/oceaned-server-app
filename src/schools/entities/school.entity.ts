@@ -58,6 +58,15 @@ export class School extends SoftDeletableEntity {
   @Column({ name: 'website_url', type: 'varchar', length: 500, nullable: true })
   websiteUrl: string | null;
 
+  @Column({
+    name: 'domain',
+    type: 'varchar',
+    length: 255,
+    nullable: true,
+    comment: 'Primary domain used to derive logo via Clearbit',
+  })
+  domain: string | null;
+
   @Column({ type: 'text', nullable: true })
   description: string | null;
 
