@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, ILike } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Lead } from './entities/lead.entity';
 import { CreateLeadDto } from './dto/create-lead.dto';
-import { School } from '../schools/entities/school.entity';
+import { SchoolsService } from '../schools/schools.service';
 
 @Injectable()
 export class LeadsService {
   constructor(
     @InjectRepository(Lead)
     private readonly leadRepo: Repository<Lead>,
-    @InjectRepository(School)
-    private readonly schoolRepo: Repository<School>,
+    private readonly schoolsService: SchoolsService,
   ) {}
 
   async createAndRecommend(dto: CreateLeadDto) {
@@ -26,37 +25,13 @@ export class LeadsService {
     });
     await this.leadRepo.save(lead);
 
-    // Recommend matching schools
-    const qb = this.schoolRepo
-      .createQueryBuilder('school')
-      .leftJoinAndSelect('school.country', 'country')
-      .leftJoinAndSelect('school.programs', 'program')
-      .where('school.is_active = 1')
-      .take(6);
-
-    if (dto.destinationCountry) {
-      qb.andWhere('country.name LIKE :c', {
-        c: `%${dto.destinationCountry}%`,
-      });
-    }
-
-    if (dto.preferredCourse) {
-      qb.andWhere('program.course_name LIKE :p', {
-        p: `%${dto.preferredCourse}%`,
-      });
-    }
-
-    let schools = await qb.getMany();
-
-    // Fallback: return top active schools if no course matches
-    if (schools.length === 0) {
-      schools = await this.schoolRepo.find({
-        where: { isActive: true },
-        relations: ['country', 'programs'],
-        take: 6,
-        order: { ranking: 'ASC' },
-      });
-    }
+    // Use the shared recommendation engine so the hero form and the logged-in
+    // dashboard surface the same set of schools for the same preferences.
+    const schools = await this.schoolsService.recommend({
+      country: dto.destinationCountry ?? undefined,
+      course: dto.preferredCourse ?? undefined,
+      limit: 6,
+    });
 
     return { lead: { id: lead.id }, schools };
   }

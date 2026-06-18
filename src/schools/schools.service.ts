@@ -206,6 +206,92 @@ export class SchoolsService {
     };
   }
 
+  /**
+   * Deterministic, multi-country recommendation set used by BOTH the public
+   * lead form and the logged-in dashboard, so a user sees a consistent list
+   * for the same preferences. When a country is given it filters to it;
+   * otherwise it diversifies across all partner countries instead of returning
+   * an alphabetical (German-heavy) page. `course` is applied as a soft filter
+   * with a graceful fallback so results never come back empty.
+   */
+  async recommend(opts: {
+    country?: string;
+    course?: string;
+    limit?: number;
+  }): Promise<School[]> {
+    const limit = opts.limit ?? 6;
+    const country = opts.country;
+
+    const buildBase = () => {
+      const qb = this.schoolRepository
+        .createQueryBuilder('school')
+        .leftJoinAndSelect('school.country', 'country')
+        .where('school.isActive = :active', { active: true })
+        .orderBy('school.partnerStatus', 'DESC')
+        .addOrderBy('school.ranking', 'ASC')
+        .addOrderBy('school.name', 'ASC');
+      if (country) qb.andWhere('country.name = :country', { country });
+      return qb;
+    };
+
+    // Soft course match (school name / description) with fallback.
+    const withCourse = (qb: ReturnType<typeof buildBase>) => {
+      if (opts.course) {
+        qb.andWhere(
+          '(school.name LIKE :c OR school.description LIKE :c)',
+          { c: `%${opts.course}%` },
+        );
+      }
+      return qb;
+    };
+
+    // Single-country (or course-filtered) path.
+    if (country || opts.course) {
+      let rows = await withCourse(buildBase()).take(limit).getMany();
+      if (rows.length < limit) {
+        // Fill remaining slots ignoring the soft course filter.
+        const fill = await buildBase()
+          .take(limit)
+          .getMany();
+        const seen = new Set(rows.map((r) => r.id));
+        for (const f of fill) {
+          if (rows.length >= limit) break;
+          if (!seen.has(f.id)) {
+            rows.push(f);
+            seen.add(f.id);
+          }
+        }
+      }
+      return rows.slice(0, limit).map((s) => this.withSession(s));
+    }
+
+    // No country: diversify across partner countries deterministically.
+    const partnerCountries = [
+      'Germany',
+      'United Kingdom',
+      'Canada',
+      'Netherlands',
+      'Estonia',
+      'New Zealand',
+    ];
+    const perCountry = Math.max(1, Math.ceil(limit / partnerCountries.length));
+    const out: School[] = [];
+    for (const c of partnerCountries) {
+      const rows = await this.schoolRepository
+        .createQueryBuilder('school')
+        .leftJoinAndSelect('school.country', 'country')
+        .where('school.isActive = :active', { active: true })
+        .andWhere('country.name = :c', { c })
+        .orderBy('school.partnerStatus', 'DESC')
+        .addOrderBy('school.ranking', 'ASC')
+        .addOrderBy('school.name', 'ASC')
+        .take(perCountry)
+        .getMany();
+      out.push(...rows);
+    }
+    return out.slice(0, limit).map((s) => this.withSession(s));
+  }
+
   async findOne(id: number): Promise<School> {
     const school = await this.findOneOrFail(id);
     return this.withSession(school);

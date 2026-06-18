@@ -53,6 +53,22 @@ export class SchoolsController {
     return this.schoolsService.getStates(countryId ? Number(countryId) : undefined);
   }
 
+  @Get('recommendations')
+  @ApiOperation({
+    summary: 'Consistent, multi-country school recommendations (public)',
+  })
+  recommend(
+    @Query('country') country?: string,
+    @Query('course') course?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.schoolsService.recommend({
+      country: country || undefined,
+      course: course || undefined,
+      limit: limit ? Number(limit) : undefined,
+    });
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get a school by ID (public)' })
   findOne(@Param('id', ParseIntPipe) id: number) {
