@@ -27,15 +27,34 @@ export class User {
   @Index('idx_users_email')
   email: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  @Exclude({ toPlainOnly: true }) 
-  password: string;
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  @Exclude({ toPlainOnly: true })
+  password: string | null;
 
   @Column({ name: 'first_name', type: 'varchar', length: 100 })
   firstName: string;
 
   @Column({ name: 'last_name', type: 'varchar', length: 100 })
   lastName: string;
+
+  @Column({ name: 'avatar_url', type: 'varchar', length: 500, nullable: true })
+  avatarUrl: string | null;
+
+  @Column({ name: 'google_id', type: 'varchar', length: 255, nullable: true })
+  @Index('idx_users_google_id')
+  googleId: string | null;
+
+  @Column({ name: 'preferred_country', type: 'varchar', length: 100, nullable: true })
+  preferredCountry: string | null;
+
+  @Column({ name: 'preferred_course', type: 'varchar', length: 200, nullable: true })
+  preferredCourse: string | null;
+
+  @Column({ name: 'preferred_degree_type', type: 'varchar', length: 100, nullable: true })
+  preferredDegreeType: string | null;
+
+  @Column({ name: 'budget_range', type: 'varchar', length: 50, nullable: true })
+  budgetRange: string | null;
 
   @Column({ name: 'is_active', type: 'tinyint', width: 1, default: true })
   isActive: boolean;

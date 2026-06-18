@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Patch,
   Get,
   Body,
   HttpCode,
@@ -91,6 +92,43 @@ export class AuthController {
       success: true,
       message: 'Login successful',
       data: result,
+    };
+  }
+
+  @Public()
+  @Post('google')
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Sign in / sign up with a Google ID token' })
+  async google(@Body() body: { idToken: string }) {
+    const result = await this.authService.googleAuth(body.idToken);
+    return {
+      success: true,
+      message: 'Login successful',
+      data: result,
+    };
+  }
+
+  @Patch('me/preferences')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Update study-abroad recommendation preferences' })
+  async updatePreferences(
+    @CurrentUser() user: any,
+    @Body()
+    body: {
+      preferredCountry?: string | null;
+      preferredCourse?: string | null;
+      preferredDegreeType?: string | null;
+      budgetRange?: string | null;
+    },
+  ) {
+    const updated = await this.authService.updatePreferences(user.id, body);
+    return {
+      success: true,
+      message: 'Preferences updated',
+      data: updated,
     };
   }
 
