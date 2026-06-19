@@ -68,7 +68,12 @@ import * as Joi from '@hapi/joi';
         synchronize: true,
         migrations: ['dist/database/migrations/*.js'],
         migrationsRun: false,
- 
+        // Managed MySQL providers (Aiven, PlanetScale, etc.) require TLS.
+        // Set DB_SSL=true in production to connect over SSL.
+        ssl:
+          config.get<string>('DB_SSL') === 'true'
+            ? { rejectUnauthorized: false }
+            : undefined,
       }),
     }),
     UsersModule,
