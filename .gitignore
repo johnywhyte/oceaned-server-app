@@ -61,4 +61,5 @@ lerna-debug.log*
 # report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # /generated/prisma
-uploads/
+# Runtime upload folder at repo root only (NOT the src/uploads source module)
+/uploads/
