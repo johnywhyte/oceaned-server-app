@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Patch,
   Get,
   Body,
   HttpCode,
@@ -19,7 +20,8 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { RegisterUserDto} from './dto/register-user.dto';
-import {LoginDto} from './dto/login.dto'; 
+import { SignupDto } from './dto/signup.dto';
+import {LoginDto} from './dto/login.dto';
 import {RefreshTokenDto} from './dto/refresh-token.dto';
 import{ForgotPasswordDto} from './dto/forgot-password.dto'; 
 import { ResetPasswordDto} from './dto/reset-password.dto'; 
@@ -61,6 +63,25 @@ export class AuthController {
   }
 
   @Public()
+  @Post('signup')
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({
+    summary: 'Student self-registration',
+    description:
+      'Public sign-up. Always creates a STUDENT account and returns auth tokens.',
+  })
+  @ApiResponse({ status: 201, description: 'Account created and logged in.' })
+  async signup(@Body() signupDto: SignupDto) {
+    const result = await this.authService.signup(signupDto);
+    return {
+      success: true,
+      message: 'Account created successfully',
+      data: result,
+    };
+  }
+
+  @Public()
   @Post('login')
   @Throttle({ default: { limit: 10, ttl: 60000 } })
   @HttpCode(HttpStatus.OK)
@@ -71,6 +92,43 @@ export class AuthController {
       success: true,
       message: 'Login successful',
       data: result,
+    };
+  }
+
+  @Public()
+  @Post('google')
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Sign in / sign up with a Google ID token' })
+  async google(@Body() body: { idToken: string }) {
+    const result = await this.authService.googleAuth(body.idToken);
+    return {
+      success: true,
+      message: 'Login successful',
+      data: result,
+    };
+  }
+
+  @Patch('me/preferences')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Update study-abroad recommendation preferences' })
+  async updatePreferences(
+    @CurrentUser() user: any,
+    @Body()
+    body: {
+      preferredCountry?: string | null;
+      preferredCourse?: string | null;
+      preferredDegreeType?: string | null;
+      budgetRange?: string | null;
+    },
+  ) {
+    const updated = await this.authService.updatePreferences(user.id, body);
+    return {
+      success: true,
+      message: 'Preferences updated',
+      data: updated,
     };
   }
 
@@ -102,15 +160,21 @@ export class AuthController {
     };
   }
 
-  @UseGuards(JwtAuthGuard)
+  @Public()
   @Post('forgot-password')
   @HttpCode(HttpStatus.OK)
   async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
     const result = await this.authService.forgotPassword(forgotPasswordDto);
-    return { success: true, message: result.message };
+    return {
+      success: true,
+      message: result.message,
+      ...(('devToken' in result && result.devToken)
+        ? { devToken: result.devToken }
+        : {}),
+    };
   }
 
-  @UseGuards(JwtAuthGuard)
+  @Public()
   @Post('reset-password')
   @HttpCode(HttpStatus.OK)
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {

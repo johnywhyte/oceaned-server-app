@@ -17,6 +17,12 @@ export enum PartnerStatus {
   NON_PARTNER = 'non_partner',
 }
 
+export enum SchoolType {
+  PUBLIC = 'public',
+  PRIVATE = 'private',
+  UNKNOWN = 'unknown',
+}
+
 @Entity('schools')
 @Index('idx_schools_name', ['name'])
 @Index('idx_schools_country', ['country'])
@@ -31,8 +37,35 @@ export class School extends SoftDeletableEntity {
   @Column({ name: 'city', type: 'varchar', length: 100, nullable: true })
   city: string | null;
 
+  @Column({
+    name: 'state',
+    type: 'varchar',
+    length: 120,
+    nullable: true,
+    comment: 'State / province / region (e.g., Bavaria)',
+  })
+  state: string | null;
+
+  @Column({
+    name: 'school_type',
+    type: 'enum',
+    enum: SchoolType,
+    default: SchoolType.UNKNOWN,
+    comment: 'public, private, or unknown',
+  })
+  schoolType: SchoolType;
+
   @Column({ name: 'website_url', type: 'varchar', length: 500, nullable: true })
   websiteUrl: string | null;
+
+  @Column({
+    name: 'domain',
+    type: 'varchar',
+    length: 255,
+    nullable: true,
+    comment: 'Primary domain used to derive logo via Clearbit',
+  })
+  domain: string | null;
 
   @Column({ type: 'text', nullable: true })
   description: string | null;

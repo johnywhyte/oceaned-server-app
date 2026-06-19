@@ -195,8 +195,8 @@ export class PostsController {
     return this.postsService.remove(id);
   }
 
+  @Public() // Related posts are shown on the public blog detail page
   @Get(':id/related')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN) // Only allow ADMIN and SUPER_ADMIN roles
   @ApiOperation({
     summary: 'Get related posts',
     description:

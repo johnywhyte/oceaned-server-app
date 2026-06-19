@@ -11,7 +11,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { PartnerStatus } from '../entities/school.entity';
+import { PartnerStatus, SchoolType } from '../entities/school.entity';
 
 export class CreateSchoolDto {
   @ApiProperty({ description: 'School name', example: 'University of Toronto' })
@@ -51,6 +51,24 @@ export class CreateSchoolDto {
   @IsString()
   @MaxLength(100)
   city?: string;
+
+  @ApiPropertyOptional({
+    description: 'State / province / region',
+    example: 'Bavaria',
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(120)
+  state?: string;
+
+  @ApiPropertyOptional({
+    description: 'Whether the school is public or private',
+    enum: SchoolType,
+    default: SchoolType.UNKNOWN,
+  })
+  @IsOptional()
+  @IsEnum(SchoolType)
+  schoolType?: SchoolType;
 
   @ApiPropertyOptional({
     description: 'School website URL',

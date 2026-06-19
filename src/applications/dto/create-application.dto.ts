@@ -46,9 +46,13 @@ class ReferenceDto {
 }
 
 export class CreateApplicationDto {
-  @ApiProperty({ description: 'Scholarship ID to apply for', example: 1 })
+  @ApiPropertyOptional({
+    description: 'Scholarship ID (optional — omit to apply to a program only)',
+    example: 1,
+  })
+  @IsOptional()
   @IsNumber()
-  scholarshipId: number;
+  scholarshipId?: number;
 
   @ApiProperty({ description: 'Program ID to apply for', example: 1 })
   @IsNumber()

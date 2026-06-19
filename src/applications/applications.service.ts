@@ -7,13 +7,24 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Application, ApplicationStatus } from './entities/applications.entity';
+import * as crypto from 'crypto';
+import {
+  Application,
+  ApplicationStatus,
+  ProofOfFundsOption,
+  UniversityType,
+} from './entities/applications.entity';
+import { Invoice, InvoiceStatus } from './entities/invoice.entity';
 import { UserApplication, UserApplicationRole } from './entities/user-application.entity';
 import { CreateApplicationDto } from './dto/create-application.dto';
 import { UpdateApplicationDto } from './dto/update-application.dto';
 import { UpdateApplicationStatusDto } from './dto/update-status.dto';
 import { QueryApplicationDto } from './dto/query-application.dto';
 import { SubmitApplicationDto } from './dto/submit-application.dto';
+import { CreateApplicationForUserDto } from './dto/create-application-for-user.dto';
+import { User } from '../user/entities/user.entity';
+import { Role } from '../user/entities/role.entity';
+import { EmailService } from '../email/email.service';
 
 @Injectable()
 export class ApplicationsService {
@@ -23,7 +34,117 @@ export class ApplicationsService {
 
     @InjectRepository(UserApplication)
     private readonly userApplicationRepo: Repository<UserApplication>,
+
+    @InjectRepository(Invoice)
+    private readonly invoiceRepo: Repository<Invoice>,
+
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>,
+
+    @InjectRepository(Role)
+    private readonly roleRepo: Repository<Role>,
+
+    private readonly emailService: EmailService,
   ) {}
+
+  /** Generates a readable temporary password that satisfies the password policy. */
+  private generatePassword(): string {
+    const upper = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+    const lower = 'abcdefghijkmnpqrstuvwxyz';
+    const digits = '23456789';
+    const all = upper + lower + digits;
+    const pick = (set: string) => set[crypto.randomInt(set.length)];
+    let pwd = pick(upper) + pick(lower) + pick(digits);
+    for (let i = 0; i < 7; i++) pwd += pick(all);
+    return pwd;
+  }
+
+  /**
+   * Admin creates an application on behalf of a prospective student. If the
+   * user doesn't exist, a STUDENT account is created with a generated password
+   * and the credentials are emailed to them. The generated password is also
+   * returned so the admin can share it directly.
+   */
+  async adminCreateForUser(dto: CreateApplicationForUserDto): Promise<{
+    application: Application;
+    user: { id: number; email: string; firstName: string; lastName: string };
+    accountCreated: boolean;
+    generatedPassword?: string;
+  }> {
+    let user = await this.userRepo.findOne({ where: { email: dto.email } });
+    let generatedPassword: string | undefined;
+    let accountCreated = false;
+
+    if (!user) {
+      const studentRole = await this.roleRepo.findOne({
+        where: { name: 'STUDENT' },
+      });
+      if (!studentRole) {
+        throw new BadRequestException('STUDENT role is not configured.');
+      }
+      generatedPassword = this.generatePassword();
+      user = this.userRepo.create({
+        email: dto.email,
+        password: generatedPassword,
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+        phoneNumber: dto.phoneNumber ?? null,
+        country: dto.country ?? null,
+        role: studentRole,
+      });
+      user = await this.userRepo.save(user);
+      accountCreated = true;
+      await this.emailService.sendAccountCredentialsEmail(
+        user.email,
+        user.firstName,
+        generatedPassword,
+      );
+    }
+
+    const duplicate = await this.applicationRepo.findOne({
+      where: {
+        userId: user.id,
+        programId: dto.programId,
+        ...(dto.scholarshipId ? { scholarshipId: dto.scholarshipId } : {}),
+      },
+    });
+    if (duplicate) {
+      throw new ConflictException(
+        'This user already has an application for that program.',
+      );
+    }
+
+    const application = this.applicationRepo.create({
+      userId: user.id,
+      programId: dto.programId,
+      scholarshipId: dto.scholarshipId ?? null,
+      intendedMajor: dto.intendedMajor ?? null,
+      reviewerNotes: dto.reviewerNotes ?? null,
+      status: ApplicationStatus.DRAFT,
+    });
+    const saved = await this.applicationRepo.save(application);
+
+    await this.userApplicationRepo.save(
+      this.userApplicationRepo.create({
+        userId: user.id,
+        applicationId: saved.id,
+        role: UserApplicationRole.STUDENT,
+      }),
+    );
+    await this.recalculateCompletion(saved.id);
+
+    return {
+      application: await this.findOneOrFail(saved.id, true),
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+      accountCreated,
+      generatedPassword,
+    };
+  }
 
   async create(userId: number, dto: CreateApplicationDto): Promise<Application> {
     const existing = await this.applicationRepo.findOne({
@@ -42,7 +163,7 @@ export class ApplicationsService {
 
     const application = this.applicationRepo.create({
       userId,
-      scholarshipId: dto.scholarshipId,
+      scholarshipId: dto.scholarshipId ?? null,
       programId: dto.programId,
       personalStatement: dto.personalStatement ?? null,
       currentGpa: dto.currentGpa ?? null,
@@ -77,6 +198,8 @@ export class ApplicationsService {
       .createQueryBuilder('application')
       .leftJoinAndSelect('application.scholarship', 'scholarship')
       .leftJoinAndSelect('application.program', 'program')
+      .leftJoinAndSelect('application.school', 'school')
+      .leftJoinAndSelect('application.invoices', 'invoices')
       .where('application.userId = :userId', { userId })
       .andWhere('application.deleted_at IS NULL');
 
@@ -111,6 +234,8 @@ export class ApplicationsService {
       .leftJoinAndSelect('application.user', 'user')
       .leftJoinAndSelect('application.scholarship', 'scholarship')
       .leftJoinAndSelect('application.program', 'program')
+      .leftJoinAndSelect('application.school', 'school')
+      .leftJoinAndSelect('application.invoices', 'invoices')
       .leftJoinAndSelect('application.userApplications', 'userApplications')
       .where('application.deletedAt IS NULL');
 
@@ -261,11 +386,217 @@ export class ApplicationsService {
   }
 
   async getUserApplicationPivots(applicationId: number): Promise<UserApplication[]> {
-    await this.findOneOrFail(applicationId); 
+    await this.findOneOrFail(applicationId);
     return this.userApplicationRepo.find({
       where: { applicationId },
       relations: ['user'],
     });
+  }
+
+  /* ----------------------------------------------------------------------- */
+  /*  Study-abroad application flow (school → course → semester → documents) */
+  /* ----------------------------------------------------------------------- */
+
+  /** OCEANED application service fee (EUR). Configurable via env. */
+  private serviceFee(): number {
+    const v = Number(process.env.APPLICATION_SERVICE_FEE);
+    return Number.isFinite(v) && v > 0 ? v : 350;
+  }
+
+  /** Create a DRAFT study-abroad application for the chosen school/course. */
+  async createStudyApplication(
+    userId: number,
+    dto: {
+      schoolId: number;
+      intendedCourse: string;
+      intake: string;
+      degreeType?: string;
+      universityType?: UniversityType;
+      proofOfFundsOption?: ProofOfFundsOption;
+      personalStatement?: string;
+      documents?: { name: string; type: string; url: string }[];
+    },
+  ): Promise<Application> {
+    const application = this.applicationRepo.create({
+      userId,
+      schoolId: dto.schoolId,
+      intendedCourse: dto.intendedCourse,
+      intake: dto.intake,
+      degreeType: dto.degreeType ?? null,
+      universityType: dto.universityType ?? null,
+      proofOfFundsOption: dto.proofOfFundsOption ?? null,
+      personalStatement: dto.personalStatement ?? null,
+      documents: dto.documents
+        ? dto.documents.map((d) => ({ ...d, uploadedAt: new Date() }))
+        : null,
+      status: ApplicationStatus.DRAFT,
+    });
+    const saved = await this.applicationRepo.save(application);
+    await this.userApplicationRepo.save(
+      this.userApplicationRepo.create({
+        userId,
+        applicationId: saved.id,
+        role: UserApplicationRole.STUDENT,
+      }),
+    );
+    return this.findOneOrFail(saved.id);
+  }
+
+  /** Append uploaded documents to an application the user owns. */
+  async addDocuments(
+    id: number,
+    userId: number,
+    docs: { name: string; type: string; url: string }[],
+  ): Promise<Application> {
+    await this.verifyOwnership(userId, id);
+    const app = await this.findOneOrFail(id);
+    const existing = Array.isArray(app.documents) ? app.documents : [];
+    app.documents = [
+      ...existing,
+      ...docs.map((d) => ({ ...d, uploadedAt: new Date() })),
+    ];
+    return this.applicationRepo.save(app);
+  }
+
+  /** Remove a previously-uploaded document by its URL. */
+  async removeDocument(id: number, userId: number, url: string): Promise<Application> {
+    await this.verifyOwnership(userId, id);
+    const app = await this.findOneOrFail(id);
+    app.documents = (app.documents ?? []).filter((d) => d.url !== url);
+    return this.applicationRepo.save(app);
+  }
+
+  /**
+   * Submit a study application: moves DRAFT → PENDING_PAYMENT and raises an
+   * invoice for the OCEANED application service fee.
+   */
+  async submitStudyApplication(
+    id: number,
+    userId: number,
+    dto?: { proofOfFundsOption?: ProofOfFundsOption; personalStatement?: string },
+  ): Promise<{ application: Application; invoice: Invoice }> {
+    await this.verifyOwnership(userId, id);
+    const app = await this.findOneOrFail(id);
+
+    if (app.status !== ApplicationStatus.DRAFT) {
+      throw new ConflictException('This application has already been submitted.');
+    }
+    if (!app.documents || app.documents.length === 0) {
+      throw new BadRequestException(
+        'Please upload your required documents before submitting.',
+      );
+    }
+    if (dto?.proofOfFundsOption) app.proofOfFundsOption = dto.proofOfFundsOption;
+    if (dto?.personalStatement) app.personalStatement = dto.personalStatement;
+
+    app.status = ApplicationStatus.PENDING_PAYMENT;
+    app.submittedAt = new Date();
+    app.isComplete = true;
+    app.completionPercentage = 100;
+    await this.applicationRepo.save(app);
+
+    // One open invoice per application.
+    let invoice = await this.invoiceRepo.findOne({ where: { applicationId: id } });
+    if (!invoice) {
+      invoice = this.invoiceRepo.create({
+        applicationId: id,
+        userId,
+        reference: `OCN-${id}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`,
+        description: 'OCEANED application & processing service fee',
+        amount: this.serviceFee(),
+        currency: 'EUR',
+        status: InvoiceStatus.UNPAID,
+      });
+      invoice = await this.invoiceRepo.save(invoice);
+    }
+
+    return { application: await this.findOneOrFail(id), invoice };
+  }
+
+  /** Student uploads proof of payment → AWAITING_CONFIRMATION. */
+  async uploadPaymentProof(
+    id: number,
+    userId: number,
+    url: string,
+  ): Promise<{ application: Application; invoice: Invoice }> {
+    await this.verifyOwnership(userId, id);
+    const app = await this.findOneOrFail(id);
+    if (
+      app.status !== ApplicationStatus.PENDING_PAYMENT &&
+      app.status !== ApplicationStatus.AWAITING_CONFIRMATION
+    ) {
+      throw new ConflictException(
+        'Payment proof can only be uploaded while payment is pending.',
+      );
+    }
+    app.paymentProofUrl = url;
+    app.status = ApplicationStatus.AWAITING_CONFIRMATION;
+    await this.applicationRepo.save(app);
+
+    const invoice = await this.invoiceRepo.findOne({ where: { applicationId: id } });
+    if (invoice) {
+      invoice.paymentProofUrl = url;
+      invoice.status = InvoiceStatus.AWAITING_CONFIRMATION;
+      await this.invoiceRepo.save(invoice);
+    }
+    return { application: await this.findOneOrFail(id), invoice: invoice! };
+  }
+
+  /** Admin confirms the payment → PROCESSING and marks the invoice paid. */
+  async confirmPayment(id: number): Promise<Application> {
+    const app = await this.findOneOrFail(id);
+    if (app.status !== ApplicationStatus.AWAITING_CONFIRMATION) {
+      throw new ConflictException(
+        'Only applications awaiting payment confirmation can be confirmed.',
+      );
+    }
+    app.status = ApplicationStatus.PROCESSING;
+    await this.applicationRepo.save(app);
+
+    const invoice = await this.invoiceRepo.findOne({ where: { applicationId: id } });
+    if (invoice) {
+      invoice.status = InvoiceStatus.PAID;
+      invoice.paidAt = new Date();
+      await this.invoiceRepo.save(invoice);
+    }
+    return this.findOneOrFail(id);
+  }
+
+  /** Admin advances the application through the processing lifecycle. */
+  async setStudyStatus(
+    id: number,
+    status: ApplicationStatus,
+    notes?: string,
+    rejectionReason?: string,
+  ): Promise<Application> {
+    const app = await this.findOneOrFail(id);
+    const allowed: ApplicationStatus[] = [
+      ApplicationStatus.PROCESSING,
+      ApplicationStatus.AWAITING_ADMISSION,
+      ApplicationStatus.ADMISSION_GRANTED,
+      ApplicationStatus.ADMISSION_REJECTED,
+    ];
+    if (!allowed.includes(status)) {
+      throw new BadRequestException('Invalid status transition.');
+    }
+    if (status === ApplicationStatus.ADMISSION_REJECTED && !rejectionReason) {
+      throw new BadRequestException('A reason is required when rejecting admission.');
+    }
+    app.status = status;
+    if (notes) app.reviewerNotes = notes;
+    if (status === ApplicationStatus.ADMISSION_REJECTED) {
+      app.rejectionReason = rejectionReason!;
+      app.decisionAt = new Date();
+    }
+    if (status === ApplicationStatus.ADMISSION_GRANTED) {
+      app.decisionAt = new Date();
+    }
+    return this.applicationRepo.save(app);
+  }
+
+  /** Invoice for an application (owner or admin). */
+  async getInvoice(applicationId: number): Promise<Invoice | null> {
+    return this.invoiceRepo.findOne({ where: { applicationId } });
   }
 
   private async findOneOrFail(
@@ -276,6 +607,11 @@ export class ApplicationsService {
       .createQueryBuilder('app')
       .where('app.id = :id', { id })
       .andWhere('app.deleted_at IS NULL');
+
+    qb.leftJoinAndSelect('app.school', 'school').leftJoinAndSelect(
+      'app.invoices',
+      'invoices',
+    );
 
     if (withRelations) {
       qb.leftJoinAndSelect('app.user', 'user')

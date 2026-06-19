@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { join } from 'path';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
@@ -8,9 +10,19 @@ import { ResponseTransformInterceptor } from './common/interceptors/response-tra
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  app.use(helmet());
+  app.use(
+    helmet({
+      // Allow images served from /uploads to be embedded cross-origin
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+    }),
+  );
+
+  // Serve locally-stored uploads (blog images, etc.) from /uploads
+  app.useStaticAssets(join(process.cwd(), 'uploads'), {
+    prefix: '/uploads/',
+  });
 
   app.setGlobalPrefix('api/v1');
 
