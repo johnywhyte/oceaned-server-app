@@ -26,8 +26,24 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api/v1');
 
+  // Allow one or more frontend origins (comma-separated in FRONTEND_URL),
+  // plus localhost for development. e.g.
+  // FRONTEND_URL=https://oceanedconsults.com,https://www.oceanedconsults.com,https://oceaned.vercel.app
+  const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+  const localhostRegex = /^http:\/\/localhost(:\d+)?$/;
+
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:8001',
+    origin: (origin, callback) => {
+      // Allow non-browser clients (curl/server-to-server) with no Origin.
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin) || localhostRegex.test(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error(`Origin ${origin} not allowed by CORS`), false);
+    },
     credentials: true,
   });
 
