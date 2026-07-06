@@ -6,6 +6,7 @@ import { User } from '../user/entities/user.entity';
 import { Role } from '../user/entities/role.entity';
 import { EmailModule } from '../email/email.module';
 import { RoleSeeder } from 'src/database/role.seeder';
+import { AdminSeeder } from 'src/database/admin.seeder';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { RoleSeeder } from 'src/database/role.seeder';
     EmailModule, 
   ],
   controllers: [UsersController],
-  providers: [UsersService, RoleSeeder],
+  providers: [UsersService, RoleSeeder, AdminSeeder],
   exports: [UsersService],
 })
 export class UsersModule {}
